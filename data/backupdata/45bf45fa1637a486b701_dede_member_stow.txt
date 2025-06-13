@@ -1,0 +1,4 @@
+INSERT INTO `dede_member_stow` VALUES('1','1','29','百变苏城-盘门百变换装秀','1743130297','');
+INSERT INTO `dede_member_stow` VALUES('2','1','29','百变苏城-盘门百变换装秀','1743130369','');
+INSERT INTO `dede_member_stow` VALUES('3','1','29','百变苏城-盘门百变换装秀','1743130372','');
+INSERT INTO `dede_member_stow` VALUES('4','1','29','百变苏城-盘门百变换装秀','1743130685','');

@@ -1,0 +1,41 @@
+:root {
+    --Key-color: #ae812b; /* 主题色 */
+    --background-color: #222; /* 背景色 */
+    --background-body: #0a0a0a; /* 正文背景色 */
+    --background-carousel: #313733; /* 轮播图背景色 */
+    --background-selection: #54ff9670; /* 选中背景色 */
+    --background-text: rgb(230 255 102 / 26%); /* 文本背景 */
+    --background-blockquote: rgb(71 59 34); /* 引用背景色 */
+    --blockquote-color: rgba(174, 129, 43, 0.3); /* 引用符号颜色 */
+    --Aux-colors-1: #8b807e; /* Tag翻译字体色 */
+    --Aux-colors-2: rgb(102 128 128 / 85%); /* 浏览点赞评论数量颜色 */
+    --Aux-colors-3: rgb(131 178 131 / 50%); /* 互动区标题颜色 */
+    --solid-color: #bcbfc9; /* 纯色 */
+    --solid-color-2: #ddd; /* 纯色2 */
+    --solid-color-3: rgb(255 255 255 / 10%); /* 纯色3 */
+    --faint-color-0: rgb(128 128 128 / 10%); /* 浅浅浅色1-互动区背景 */
+    --faint-color-1: rgb(255 255 255 / 10%); /* 浅浅色1 */
+    --faint-color-2: rgb(255 255 255 / 10%); /* 浅浅色2 */
+    --faint-color-3: rgb(255 255 255 / 50%); /* 半透色 */
+    --faint-color-4: rgb(180 187 204 / 80%); /* 首页描述、文章页描述 */
+    --color-border: rgba(0,0,0,0.08); /* 边框颜色 */
+    --comment-color: rgb(138 138 138); /* 评论区颜色 */
+    --comment-bg-color: #1d221d; /* 评论区背景色 */
+    --comment-bg-color-2: #242526; /* 评论区背景色2 */
+    --menu-toggle-color: #ddd; /* 菜单按钮颜色 */
+    --menu-text-active: #ae812b; /* 菜单文本激活颜色 */
+    --menu-bg-color: rgb(53 64 60 / 90%); /* 菜单背景色 */
+    --header-text-color: rgb(131 142 172); /* 头部文本颜色 */
+    --header-text-color-strong: rgb(238 240 248); /* 头部文本颜色2 */
+    --img-brightness: brightness(0.9); /*默认图片亮度*/
+    --img-brightness-hover: brightness(1); /*鼠标悬停图片亮度*/
+    --code-control-bar: rgb(35 36 39); /*代码块标题背景色*/
+    --code-block-bar: rgb(22 22 22); /*代码块背景色*/
+    --diy3-background: linear-gradient(to bottom, rgb(0 0 0 / 0.7), var(--background-body)); /*主视觉模板背景*/
+    --diy3-text-color: #fff; /*主视觉模板文字颜色*/
+    --diy3-img-border: rgba(0, 0, 0, 0.3); /*主视觉模板图片边框*/
+    --polygon-brightness: 0.5 ; /* 彩色多边形背景亮度 */
+    --color-noticebubble: rgb(52 52 52 / 80%); /* 通知气泡背景色 */
+    --readmore-button: linear-gradient(90deg, var(--solid-color) 0, #ff00549c 10%, #6f00ffad 15%, #0075ffb3 20%, var(--solid-color) 30%); /* 阅读更多按钮背景色 */
+    --text-bacolor: rgb(255 255 255 / 47%); /* 彩色背景文本背景色 */
+}   

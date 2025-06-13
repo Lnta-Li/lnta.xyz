@@ -1,0 +1,150 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>{dede:global.cfg_webname/}</title>
+  <meta name="description" content="{dede:global.cfg_description/}" />
+  <meta name="keywords" content="{dede:global.cfg_keywords/}" />
+  {dede:include filename="theme.htm"/}
+  <link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
+  <link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
+  <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
+</head>
+
+<body huaban_pin_injected="true" class="home-active tra-bg-color">
+  {dede:include filename="head.htm"/}
+  <div id="pagebody">
+  <div class="page-wrapper">
+      <header class="header">
+        <section class="header-text-wrapper nested mob-over mobile-full">
+          <h1 class="header-text col-4">
+            <span class="highlighter">{dede:global.cfg_Introduce/}</span>
+          </h1>
+        </section>
+        <section class="header-image-wrapper">
+          <section class="header-image">
+            {dede:type typeid='1'}
+            <a href="[field:typeurl/]">
+              {/dede:type}
+              <img class="header-image main-image" alt="about me" src="{dede:global.cfg_head_image/}"/>
+            </a>
+            <img class="sparkle" alt="" src="{dede:global.cfg_templets_skin/}/images/sparkle.gif" />
+          </section>
+        </section>
+      </header>
+  </div>
+  <section class="projects-wrapper tra-bg-color" data-role="list">
+    <div class="projects-container">
+      <ul class="projects col-10 offset-2 nested mobile-reset">
+        {dede:arclist typeid='2' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested mobile-full" id="project-1">
+          <div class="project-number col-1 mobile-full project-m-01">
+            <h3>01</h3>
+          </div>
+          <div class="col-3 mobile-full">
+            <a class="project-link" href="[field:arcurl/]">
+              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </a>
+          </div>
+        </li>
+        {/dede:arclist}
+
+        {dede:arclist typeid='3' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested mobile-full" id="project-2">
+          <div class="project-number col-4 mobile-full">
+            <h3>02</h3>
+          </div>
+          <div class="col-4 mobile-full">
+            <a class="project-link" href="[field:arcurl/]">
+              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </a>
+          </div>
+        </li>
+        {/dede:arclist}
+
+        {dede:arclist typeid='4' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested offset-1 mobile-full mobile-no-offset" id="project-3">
+          <div class="project-number col-4 mobile-full">
+            <h3>03</h3>
+          </div>
+          <div class="col-4 mobile-full">
+            <a class="project-link" href="[field:arcurl/]">
+              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </a>
+          </div>
+        </li>
+        {/dede:arclist}
+
+        {dede:arclist typeid='5' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested mobile-full" id="project-4">
+          <a class="project-link flipped mobile-unflip" href="[field:arcurl/]" style="display: flex;">
+            <div class="project-number col-2 mobile-full">
+              <h3>04</h3>
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </div>
+            <div class="col-2 mobile-full">
+              <img class="project-thumb smaller" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+            </div>
+          </a>
+        </li>
+        {/dede:arclist}
+
+        {dede:arclist typeid='6' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested mobile-full" id="project-5">
+          <div class="project-number col-1 mobile-full">
+            <h3>05</h3>
+          </div>
+          <div class="col-3 mobile-full">
+            <a class="project-link" href="[field:arcurl/]">
+              <img class="project-thumb small" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </a>
+          </div>
+        </li>
+        {/dede:arclist}
+
+        {dede:arclist typeid='7' titlelen='60' row='1' flag='f'}
+        <li class="project col-4 nested mobile-full" id="project-6">
+          <div class="project-number col-4 mobile-full">
+            <h3>06</h3>
+          </div>
+          <div class="col-4 mobile-full">
+            <a class="project-link" href="[field:arcurl/]">
+              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
+              <h6 class="active">[field:typename/]</h6>
+              <h2>[field:title/]</h2>
+              <p>[field:description function="cutStr(@me,120)/]</p>
+            </a>
+          </div>
+        </li>
+        {/dede:arclist}
+      </ul>
+      <div class="fillwidth-2"></div>
+      <div class="header-text-link">
+        <a class="btn-shine" href="/tags/All.html"><i class="iconfontb">&#xe602;</i> Read More</a>
+      </div>
+    </div>
+    {dede:include filename="footer.htm"/}
+  </section>
+  </div>
+
+  <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script>
+</body>
+
+</html>

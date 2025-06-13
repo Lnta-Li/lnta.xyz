@@ -1,0 +1,512 @@
+@media screen and (max-width: 768px) {
+    .stat-value {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .author-description a, .author-description {
+        font-size: 14px;
+    }
+
+    .author-description a {
+        width: 75%;
+    }
+
+}
+
+.dcmp-userinfo button {
+    width: 91px;
+    height: 40px;
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: var(--solid-color-2);
+    background-color: var(--background-color);
+    margin-right: 0px;
+    font-size: 16px;
+    float: right;
+    font-family: var(--content-font-family);
+    font-variation-settings: 'wght' 380, 'ROND' 0;
+}
+
+.dcmp-userinfo button:hover {
+    background-color: var(--Key-color);
+}
+
+.dcmp-userinfo input {
+    font-size: 16px;
+    border: 2px dashed var(--background-color);
+    border-radius: 8px;
+    font-family: var(--defult-font-family);
+    background-color: var(--comment-bg-color);
+    color: var(--faint-color-3);
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.dcmp-content textarea {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    border: 2px dashed var(--background-color);
+    background-color: var(--comment-bg-color-2);
+    border-radius: 8px;
+    resize: none;
+    font-family: var(--defult-font-family);
+    color: var(--faint-color-3);
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+.dcmp-userinfo {
+   margin-top: 8px; 
+}
+
+.dcmp-userinfo img {
+    vertical-align: middle;
+    height: 30px;
+}
+
+#commetcontent {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+#ReadMore {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+#ReadMore a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.decmt-box2 {
+    display: flex;
+    margin: 10px 0;
+    height: 50px;
+    width: max-content;
+    padding: 0 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: var(--faint-color-0);
+    border-radius: 12px;
+    cursor: pointer;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.fl {
+    color: var(--faint-color-4);
+    font-size: 0;
+    opacity: 0;
+    transition: font-size var(--transition-time) ease,
+                opacity var(--transition-time) ease;
+    -webkit-transition: font-size var(--transition-time) ease,
+                        opacity var(--transition-time) ease;
+}
+
+.decmt-box2 img {
+    border-radius: 50%; 
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: width var(--transition-time) ease,
+                height var(--transition-time) ease,
+                opacity var(--transition-time) ease;
+    -webkit-transition: width var(--transition-time) ease,
+                        height var(--transition-time) ease,
+                        opacity var(--transition-time) ease;
+    margin-right: 8px;
+    margin-left: -8px;
+    object-fit: cover;
+}
+
+.decmt-box2:hover {
+    background-color:var(--faint-color-1);
+}
+
+.decmt-box2:hover img {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+}
+
+.decmt-box2:hover .text {
+    font-size: 14px;
+}
+
+.decmt-box2:hover .fl {
+    font-size: 12px;
+    opacity: 1;
+}
+
+.text {
+    font-family: var(--defult-font-family);
+    font-size: 16px;
+    color: var(--comment-color);
+    transition: font-size var(--transition-time) ease;
+    -webkit-transition: font-size var(--transition-time) ease;
+}
+
+.tbox {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.dcmp-userinfo #dcmp-submit-guest {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    display: none;
+}
+
+.dcmp-userinfo label {
+    vertical-align: middle;
+    display: none;
+}
+
+#commetpages {
+    display: flex;
+    color: var(--faint-color-0);
+    font-size: 14px;
+    font-family: var(--pageinfo-font-family);
+    margin: 20px 0;
+}
+
+#commetpages a {
+    color: #2c2e2f;
+    font-size: 14px;
+    font-family: var(--pageinfo-font-family);
+}
+
+#commetpages span,.author-info strong,.author-info a {
+    margin: 0 5px;
+}
+
+textarea:focus-visible, input:focus-visible {
+    outline: none;
+    border: 2px solid var(--background-color);
+}
+
+/* 作者信息区域样式 */
+.author-info {
+    background-color: var(--faint-color-0);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 0 auto;
+}
+
+.author-header {
+    margin-bottom: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: rgb(135 136 146);
+    font-family: var(--defult-font-family);
+    justify-content: center;
+}
+
+.author-label {
+    display: block;
+    text-align: center;
+}
+
+.author-name {
+    margin: 0;
+    text-align: center;
+    background-color: var(--faint-color-1);
+    padding: 4px 10px;
+    border-radius: 50px;
+}
+
+.author-description {
+    color: var(--comment-color);
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.author-description a {
+    color: var(--comment-color);
+    text-decoration: none;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.author-description a:hover {
+    color: var(--Key-color);
+    text-decoration: underline;
+}
+
+.author-stats {
+    display: flex;
+    gap: 6%;
+    justify-content: center;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    padding: 0 20px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 80%;
+    background-color: var(--faint-color-2);
+}
+
+.stat-item.active {
+    color: var(--Key-color);
+}
+
+.stat-item.active .stat-value i,
+.stat-item.active .stat-value {
+    color: var(--Key-color);
+}
+
+.stat-item.active .stat-label {
+    color: var(--Key-color);
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--comment-color);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    transition: color var(--transition-time) ease;
+    -webkit-transition: color var(--transition-time) ease;
+}
+
+.stat-value i {
+    font-size: 22px;
+    color: var(--comment-color);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--faint-color-3);
+}
+
+/* 对话开场白区域样式 */
+.conversation-starters {
+    margin: 30px 0;
+}
+
+.conversation-starters h3 {
+    font-size: 24px;
+    color: var(--Aux-colors-3);
+    font-weight: bold;
+}
+
+.starter-items {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.slide-mask-r, .slide-mask-l {
+    position: relative;
+}
+
+.slide-mask-r::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--background-body));
+    pointer-events: none;
+    z-index: 1;
+}
+
+.slide-mask-l::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0), var(--background-body));
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale  {
+    from { scale: 0.5; }
+    to { scale: 1; }
+}
+
+.comment-form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background-body);
+    padding: 20px;
+    border-radius: 16px;
+    z-index: 1000;
+    max-width: 80vw;
+    width: 500px;
+    animation: fadeIn, fadeInScale var(--animation-time) cubic-bezier(0.23, 0.64, 0.6, 1.35) forwards;
+}
+
+.comment-form-container::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--background-body);
+  }
+
+.comment-form-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--faint-color-3);
+    z-index: 999;
+    animation: fadeIn var(--animation-time) ease-out forwards;
+}
+
+.comment-form-container.show {
+    display: block;
+}
+
+.comment-form-overlay.show {
+    display: block;
+}
+
+@keyframes scroll {
+	from { transform: translateX(0); }
+	to { transform: translateX(-100%); }
+}
+
+.comment-scroll-container {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+.comment-scroll-wrapper {
+	display: flex;
+	gap: 16px;
+	animation: scroll linear infinite;
+}
+
+.comment-scroll-wrapper:hover {
+	animation-play-state: paused;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    70% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#commetcontentNew .decmt-box2 {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+#commetcontentNew {
+    height: 30px;
+}
+
+.decmt-box2.no-comments {
+    background-color: var(--faint-color-0);
+    border-radius: 12px;
+    padding: 16px 24px;
+    width: 100%;
+    text-align: center;
+    cursor: default;
+}
+
+.decmt-box2.no-comments .text {
+    color: var(--faint-color-3);
+    font-size: 16px;
+}
+
+.mysvg {
+    fill: var(--comment-color);
+    stroke-width: 80px;
+    width: 22px;
+    transition: fill var(--transition-time) ease;
+    -webkit-transition: fill var(--transition-time) ease;
+}
+
+.active .mysvg {
+    fill: #ff234c; 
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+    -webkit-transform-origin: center bottom;
+    transform-origin: center bottom
+}
+
+.active .down {
+    fill: var(--Key-color)!important;	
+}

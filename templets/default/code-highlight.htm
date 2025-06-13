@@ -1,0 +1,149 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查页面中是否存在code标签
+    const codeBlocks = document.querySelectorAll('code');
+    if (codeBlocks.length === 0) {
+        // 不存在code标签，不执行任何操作
+        return;
+    }
+    
+    // 存在code标签，先处理DOM结构
+    
+    // 为裸露的code标签添加pre标签包装
+    document.querySelectorAll('code:not(pre code)').forEach((codeBlock) => {
+        const preElement = document.createElement('pre');
+        const parent = codeBlock.parentNode;
+        parent.insertBefore(preElement, codeBlock);
+        preElement.appendChild(codeBlock);
+    });
+    
+    // 为每个代码块预创建控制栏结构
+    document.querySelectorAll('pre code').forEach((block, index) => {
+        // 创建控制栏容器
+        const controlBar = document.createElement('div');
+        controlBar.className = 'code-control-bar';
+        
+        // 创建语言标签占位
+        const langLabel = document.createElement('div');
+        langLabel.className = 'code-lang-label';
+        langLabel.textContent = 'CODE';
+        controlBar.appendChild(langLabel);
+
+        // 创建换行切换按钮
+        const wrapButton = document.createElement('button');
+        wrapButton.className = 'code-wrap-button';
+        wrapButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4,5V7H21V5M4,11H21V9H4M4,19H21V17H4M4,15H21V13H4V15Z"/></svg>';
+        wrapButton.title = '切换换行';
+        controlBar.appendChild(wrapButton);
+
+        // 添加复制按钮
+        const copyButton = document.createElement('button');
+        copyButton.className = 'code-copy-button';
+        copyButton.setAttribute('data-clipboard-target', `#code-block-${index}`);
+        copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg>';
+        controlBar.appendChild(copyButton);
+        
+        // 将控制栏添加到代码块容器中
+        block.parentNode.insertBefore(controlBar, block);
+
+        // 为代码块添加唯一ID
+        block.id = `code-block-${index}`;
+        
+        // 设置默认不换行
+        block.style.whiteSpace = 'pre';
+        block.style.wordWrap = 'normal';
+        
+        // 添加换行切换事件
+        wrapButton.addEventListener('click', () => {
+            const isWrapped = block.style.whiteSpace === 'pre-wrap';
+            block.style.whiteSpace = isWrapped ? 'pre' : 'pre-wrap';
+            block.style.wordWrap = isWrapped ? 'normal' : 'break-word';
+            wrapButton.classList.toggle('active');
+        });
+    });
+    
+    // 异步加载资源
+    
+    // 异步加载CSS
+    function loadCSS(url) {
+        return new Promise((resolve, reject) => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = url;
+            link.media = 'screen';
+            link.type = 'text/css';
+            link.onload = resolve;
+            link.onerror = reject;
+            document.head.appendChild(link);
+        });
+    }
+    
+    // 异步加载JS
+    function loadScript(url) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = url;
+            script.async = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+    
+    // 并行加载所有核心资源
+    Promise.all([
+        // 加载highlight.js库及样式
+        loadCSS('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css'),
+        loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'),
+        loadScript('https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js'),
+        
+        // 加载本地样式
+        loadCSS('{dede:global.cfg_templets_skin/}/style/code-highlight.css')
+    ])
+    .then(() => {
+        // 核心资源加载完成后，加载语言包
+        return Promise.all([
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js'),
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'),
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js'),
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js'),
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js')
+        ]);
+    })
+    .then(() => {
+        // 所有资源加载完成后初始化highlight.js
+        hljs.configure({
+            ignoreUnescapedHTML: true
+        });
+        
+        // 应用代码高亮
+        hljs.highlightAll();
+        
+        // 更新代码语言标签
+        document.querySelectorAll('pre code').forEach((block, index) => {
+            const language = block.result?.language || 'plaintext';
+            const langLabel = block.parentNode.querySelector('.code-lang-label');
+            if (langLabel) {
+                langLabel.textContent = language.toUpperCase();
+            }
+        });
+
+        // 初始化clipboard.js
+        const clipboard = new ClipboardJS('.code-copy-button');
+        
+        clipboard.on('success', function(e) {
+            const button = e.trigger;
+            button.classList.add('copied');
+            setTimeout(() => button.classList.remove('copied'), 2000);
+            e.clearSelection();
+        }); 
+
+        clipboard.on('error', function(e) {
+            console.error('复制失败');
+        });
+    })
+    .catch(error => {
+        console.error('代码高亮资源加载失败:', error);
+    });
+});
+</script>

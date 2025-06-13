@@ -1,0 +1,214 @@
+<!-- //主模板必须要引入{dede:global.cfg_cmsurl/}/include/dedeajax2.js -->
+<!-- //评论内容区 -->
+<a name='commettop'></a>
+<div class="mt1">
+	<dl class="tbox" id="slide-box">
+		<!-- //这两个ID的区块必须存在，否则JS会出错 -->
+		<dd id='commetcontentNew'></dd>
+		<dd id='commetcontent'></dd>
+	</dl>
+</div>
+
+<!--- 随机推荐 -->
+<div class="conversation-starters">
+	<h3>ReadMore</h3>
+	<dd id='ReadMore'>
+		{dede:arclist typeid='top' row='10' titlelen='80' orderby='rand'}
+		<div class="decmt-box2">
+			<a href="[field:arcurl/]">
+				<img src='[field:subpic/]' height='40' width='40' loading="lazy" />
+				<div class="content">
+					<span class="fl">[field:typename/] · [field:pubdate function="MyDate('Y-m-d',@me)"/]</span>
+					<div class="text">[field:title/]</div>
+				</div>
+			</a>
+		</div>
+		{/dede:arclist}
+	</dd>
+</div>
+
+<script language='javascript'>
+	// 评论表单弹出控制
+	function initCommentForm() {
+		const trigger = document.getElementById('comment-trigger');
+		const form = document.getElementById('comment-form');
+		const overlay = document.getElementById('comment-overlay');
+		
+		if (!trigger || !form || !overlay) return;
+
+		// 点击评论按钮显示表单
+		trigger.addEventListener('click', () => {
+			form.classList.add('show');
+			overlay.classList.add('show');
+			document.getElementById('pagebody').classList.add('nav');
+		});
+
+		// 点击遮罩层关闭表单
+		overlay.addEventListener('click', () => {
+			form.classList.remove('show');
+			overlay.classList.remove('show');
+			document.getElementById('pagebody').classList.remove('nav');
+		});
+
+		// 点击表单外部关闭表单
+		document.addEventListener('click', (e) => {
+			if (e.target === overlay) {
+				form.classList.remove('show');
+				overlay.classList.remove('show');
+				document.getElementById('pagebody').classList.remove('nav');
+			}
+		});
+	}
+
+	// 页面加载完成后初始化评论表单
+	window.addEventListener('load', initCommentForm);
+
+	function LoadCommets(page) {
+		var taget_obj = document.getElementById('commetcontent');
+		var waithtml = "<div style='line-height:50px'><img src='{dede:global.cfg_cmsurl/}/images/loadinglit.gif' />评论加载中...</div>";
+		var myajax = new DedeAjax(taget_obj, true, true, '', 'x', waithtml);
+		myajax.SendGet2("{dede:global.cfg_phpurl /}/feedback_ajax.php?dopost=getlist&aid={dede:field.id/}&page=" + page);
+		DedeXHTTP = null;
+	}
+	function PostComment() {
+		var f = document.feedback;
+		var nface = '6';
+		var nfeedbacktype = 'feedback';
+		var nvalidate = '';
+		var nnotuser = '';
+		var nusername = '';
+		var npwd = '';
+		var taget_obj = $DE('commetcontentNew');
+		var waithtml = "<div style='line-height:30px'><img src='{dede:global.cfg_cmsurl/}/images/loadinglit.gif' />正在发送中...</div>";
+		if (f.msg.value == '') {
+			alert("评论内容不能为空！");
+			return;
+		}
+		if (f.msg.value.length > 500) {
+			alert("你的评论是不是太长了？请填写500字以内的评论。");
+			return;
+		}
+		if (f.feedbacktype) {
+			for (var i = 0; i < f.feedbacktype.length; i++)
+				if (f.feedbacktype[i].checked) nfeedbacktype = f.feedbacktype[i].value;
+		}
+		if (f.face) {
+			for (var j = 0; j < f.face.length; j++)
+				if (f.face[j].checked) nface = f.face[j].value;
+		}
+		if (f.notuser.checked) nnotuser = '1';
+		if (f.username) nusername = f.username.value;
+		if (f.pwd) npwd = f.pwd.value;
+
+		var myajax = new DedeAjax(taget_obj, false, true, '', '', waithtml);
+		myajax.sendlang = '{dede:global.cfg_soft_lang/}';
+		myajax.AddKeyN('dopost', 'send');
+		myajax.AddKeyN('aid', '{dede:field.id/}');
+		myajax.AddKeyN('fid', f.fid.value);
+		myajax.AddKeyN('face', nface);
+		myajax.AddKeyN('feedbacktype', nfeedbacktype);
+		myajax.AddKeyN('validate', nvalidate);
+		myajax.AddKeyN('notuser', nnotuser);
+		myajax.AddKeyN('username', nusername);
+		myajax.AddKeyN('pwd', npwd);
+		myajax.AddKeyN('msg', f.msg.value);
+		myajax.SendPost2('{dede:global.cfg_phpurl/}/feedback_ajax.php');
+		f.msg.value = '';
+		f.fid.value = 0;
+		if (f.validate) {
+			if ($DE('validateimg')) $DE('validateimg').src = "{dede:global.cfg_cmsurl/}/include/vdimgck.php?" + f.validate.value;
+			f.validate.value = '';
+		}
+
+		// 关闭评论框
+		var form = document.getElementById('comment-form');
+		var overlay = document.getElementById('comment-overlay');
+		if (form && overlay) {
+			form.classList.remove('show');
+			overlay.classList.remove('show');
+			document.getElementById('pagebody').classList.remove('nav');
+		}
+
+		// 更新评论计数
+		var commentCount = document.querySelector('#comment-trigger .stat-value');
+		if (commentCount) {
+			var text = commentCount.textContent.trim();
+			var currentCount = parseInt(text.replace(/[^0-9]/g, ''));
+			if (!isNaN(currentCount)) {
+				commentCount.innerHTML = '<i class="iconfont">&#xe60e;</i>' + (currentCount + 1) + '+';
+			}
+		}
+	}
+	function quoteCommet(fid) {
+		document.feedback.fid.value = fid;
+	}
+	LoadCommets(1);
+
+	// 添加滚动效果
+	function initScroll() {
+		// 创建动画样式
+		const styleSheet = document.createElement('style');
+		document.head.appendChild(styleSheet);
+
+		// 处理评论区域
+		const commentContainer = document.getElementById('commetcontent');
+		if (commentContainer) {
+			const comments = commentContainer.querySelectorAll('.decmt-box2');
+			if (comments.length && commentContainer.scrollWidth > commentContainer.clientWidth) {
+				commentContainer.classList.add('comment-scroll-container', 'slide-mask-l', 'slide-mask-r');
+				const commentWrapper = document.createElement('div');
+				commentWrapper.className = 'comment-scroll-wrapper';
+				comments.forEach(comment => commentWrapper.appendChild(comment));
+				commentContainer.appendChild(commentWrapper);
+
+				// 计算起始位置（容器宽度加上一定的偏移量）
+				const startPosition = commentContainer.offsetWidth + 50;
+				// 计算内容总宽度（包括起始位置）
+				const totalWidth = commentWrapper.scrollWidth + startPosition;
+				// 根据设定的速度（像素/秒）计算动画时长
+				const duration = totalWidth / parseFloat('{dede:global.cfg_comment_speed/}');
+				// 动态添加滚动动画
+				styleSheet.sheet.insertRule(`
+					@keyframes scroll {
+						from { transform: translateX(${startPosition}px); }
+						to { transform: translateX(-100%); }
+					}
+				`, styleSheet.sheet.cssRules.length);
+				// 设置评论区域的滚动速度
+				commentWrapper.style.animationDuration = duration + 's';
+			}
+		}
+
+		// 处理ReadMore区域
+		const readMoreContainer = document.getElementById('ReadMore');
+		if (readMoreContainer) {
+			const readMoreItems = readMoreContainer.querySelectorAll('.decmt-box2');
+			if (readMoreItems.length && readMoreContainer.scrollWidth > readMoreContainer.clientWidth) {
+				readMoreContainer.classList.add('comment-scroll-container', 'slide-mask-l', 'slide-mask-r');
+				const readMoreWrapper = document.createElement('div');
+				readMoreWrapper.className = 'comment-scroll-wrapper';
+				readMoreItems.forEach(item => readMoreWrapper.appendChild(item));
+				readMoreContainer.appendChild(readMoreWrapper);
+
+				// 计算起始位置（容器宽度加上一定的偏移量）
+				const startPosition = readMoreContainer.offsetWidth + 50;
+				// 计算内容总宽度（包括起始位置）
+				const totalWidth = readMoreWrapper.scrollWidth + startPosition;
+				// 根据设定的速度（像素/秒）计算动画时长
+				const duration = totalWidth / parseFloat('{dede:global.cfg_readmore_speed/}');
+				// 动态添加滚动动画
+				styleSheet.sheet.insertRule(`
+					@keyframes scroll {
+						from { transform: translateX(${startPosition}px); }
+						to { transform: translateX(-100%); }
+					}
+				`, styleSheet.sheet.cssRules.length);
+				// 设置ReadMore区域的滚动速度
+				readMoreWrapper.style.animationDuration = duration + 's';
+			}
+		}
+	}
+
+	// 等待内容加载完成后初始化滚动
+	window.addEventListener('load', initScroll);
+</script><!-- //评论内容区结束 -->

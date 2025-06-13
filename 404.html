@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面不见了</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .dark-mode {
+            background-color: #121212;
+            color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 72px;
+            margin: 0;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+        
+        .animated-character {
+            font-size: 120px;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4e73df;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #375abd;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-container {
+            margin: 30px 0;
+        }
+        
+        .search-input {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+            width: 250px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: #4e73df;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .counter {
+            font-size: 18px;
+            margin-top: 30px;
+            color: #666;
+        }
+        
+        .dark-mode .counter {
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle">🌓</button>
+    
+    <div class="container">
+        <h1>404</h1>
+        <div class="animated-character">🧐</div>
+        <p>哎呀！我们找不到您要访问的页面了</p>
+        
+        <div class="search-container">
+            <form action="/plus/search.php" method="get">
+                <input type="text" name="q" class="search-input" placeholder="搜索一下，找到心仪内容...">
+                <input type="hidden" name="pagesize" value="10">
+                <input type="hidden" name="searchtype" value="title">
+                <button type="submit" class="btn">搜索</button>
+            </form>
+        </div>
+        
+        <div>
+            <a href="/" class="btn">返回首页</a>
+            <a href="javascript:history.back();" class="btn">返回上一页</a>
+        </div>
+        
+        <div class="counter">
+            <span id="timer">0</span> 秒内未能找到页面...
+        </div>
+    </div>
+    
+    <script>
+        // 计时器功能
+        let seconds = 0;
+        const timerElement = document.getElementById('timer');
+        setInterval(() => {
+            seconds++;
+            timerElement.textContent = seconds;
+        }, 1000);
+        
+        // 深色/浅色模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+        
+        // 随机表情符号
+        const emojis = ['🧐', '😲', '🤔', '😅', '🙄', '😮', '🤨', '😵', '🫥', '🫠', '😵‍💫', '🤯', '🙃', '👻', '🤖', '👽', '🦄', '🐢', '🦊', '🐼'];
+        document.querySelector('.animated-character').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // 随机有趣的404信息
+        const funnyMessages = [
+            '404错误：这个页面可能在玩捉迷藏...',
+            '404错误：哎呀，页面跑到火星去了！',
+            '404错误：页面正在充电，请稍后再来...',
+            '404错误：您要找的页面被猫咪叼走了！',
+            '404错误：您输入的网址太独特，我们的服务器惊呆了！',
+            '404错误：糟糕！页面在通往网络天堂的路上走丢了',
+            '404错误：哎呀，页面可能在数字海洋里游泳去了',
+            '404错误：页面正在参加数字世界的马拉松...',
+            '404错误：这个页面正在探索互联网的神秘角落',
+            '404错误：页面不小心掉进了代码的黑洞',
+            '404错误：页面说它要去散步，但到现在还没回来',
+            '404错误：不好意思，您要找的页面现在正在享受它的数字假期',
+            '404错误：这个页面刚刚离开去买咖啡了，请稍后再来',
+            '404错误：网页可能被困在平行宇宙中了',
+            '404错误：页面正在冥想，请勿打扰',
+            '404错误：您要找的内容像忍者一样隐藏起来了',
+            '404错误：咦？页面突然害羞了，躲起来了',
+            '404错误：这个页面正在被重新编写，很快就会回来',
+            '404错误：页面可能遇到了时空扭曲，暂时无法访问',
+            '404错误：这个链接好像通往了一个虚空的维度',
+            '404错误：页面迷失在了互联网的迷宫中',
+            '404错误：您找的内容已经去环游网络世界了',
+            '404错误：页面正在进行数字化冬眠',
+            '404错误：这个页面被程序员带回家调试去了',
+            '404错误：页面决定辞职去做自己喜欢的事情了',
+            '404错误：您访问的页面已经加入了数字游牧民族',
+            '404错误：这个页面不告而别，去了没有Wi-Fi的地方',
+            '404错误：页面在赶往服务器的路上迷路了',
+            '404错误：这个URL太过神秘，连服务器都看不懂',
+            '404错误：您输入的网址太有创意了，我们的服务器没跟上',
+            '404错误：页面可能被黑洞吞噬了',
+            '404错误：页面可能跑去看电影了，晚点再来吧',
+            '404错误：这个页面决定今天休假，不接待访客',
+            '404错误：您访问的内容可能藏在了网络的暗角',
+            '404错误：页面被外星科技传送走了'
+        ];
+        
+        document.querySelectorAll('p')[0].textContent = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    </script>
+</body>
+</html> 

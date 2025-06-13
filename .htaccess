@@ -1,0 +1,29 @@
+#dedecms?????????apache¦Á???
+RewriteEngine On
+RewriteBase /
+
+# ?????404???????
+ErrorDocument 404 /404.html
+
+# ???phpMyAdmin??
+RewriteRule ^phpMyAdmin4.8.5/ - [L]
+
+#???
+RewriteRule ^index\.html$ index\.php
+#TAG???
+RewriteRule ^tags\.html$ tags\.php
+RewriteRule ^tags/([^/]+)\.html$ tags\.php\?\/$1 [L]
+RewriteRule ^tags/([^/]+)/$ tags\.php\?\/$1 [L]
+RewriteRule ^tags/([^/]+)/([0-9]+)\.html$ tags\.php\?\/$1\/$2 [L]
+RewriteRule ^tags/([^/]+)/([0-9]+)/$ tags\.php\?\/$1\/$2 [L]
+#?§Ò????
+RewriteRule ^(.*)/$ /plus/list.php?tid=$1
+#?§Ò???????
+RewriteRule ^(.*)/list_([0-9]+)_([0-9]+)\.html$ /plus/list.php?tid=$1&PageNo=$2
+#?????
+RewriteRule ^(.*)/([0-9]+)\.html$ /plus/view.php?aid=$1
+#????????
+RewriteRule ^(.*)/([0-9]+)_([0-9]+)\.html$ /plus/view.php?aid=$1&pageno=$2
+#?????
+RewriteRule ^search/(.*)-([0-9]+)\.html$  /plus/search.php?q=$1&PageNo=$2&pagesize=10&searchtype=title
+RewriteRule ^search/(.*)\.html$  /plus/search.php?q=$1&pagesize=10&searchtype=title

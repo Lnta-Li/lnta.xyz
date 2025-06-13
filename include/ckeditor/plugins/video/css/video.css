@@ -1,0 +1,21 @@
+/*
+ * CKEditor Video Plugin CSS
+ */
+
+.cke_video {
+    background-color: #f8f8f8;
+    background-image: url(../icons/placeholder.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.cke_video:hover {
+    border-color: #0088cc;
+} 

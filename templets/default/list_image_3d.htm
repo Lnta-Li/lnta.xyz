@@ -1,0 +1,514 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+    <meta name="keywords" content="{dede:field name='keywords'/}" />
+    <meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+    {dede:include filename="theme.htm"/}
+    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{dede:global.cfg_templets_skin/}/style/list_image_3d.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/notice.js"></script>
+</head>
+
+<body huaban_pin_injected="true" class="tra-bg-color">
+    {dede:include filename="head.htm"/}
+    <div id="pagebody">
+    <div class="page-wrapper">
+        <header class="header col-9 offset-3 nested artheader mobile-full mobile-no-offset">
+            <div class="col-7 mobile-full">
+                <div class="header-image design" id="three-d-viewer">
+                    <img class="ui-3d" src="/uploads/userup/3dUI.png" alt="3DUI">
+                    <img id="current-frame" class="loading" src="/uploads/allimg/3dMovieRenders/2222.0000.jpg" alt="3D渲染">
+                    <div id="loading-container" class="loading-container">
+                        <div class="boxes">
+                            <div class="box">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="box">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="box">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="box">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="channel-title col-9 offset-3 mobile-full mobile-no-offset">
+            <h1>{dede:field.typename/}<span class="translation"> {dede:field.typeenglishname /}</span></h1>
+        </div>
+        
+        <section class="projects-wrapper tra-bg-color">
+            <div class="projects-container">
+                <ul class="projects col-10 offset-2 nested mobile-full mobile-no-offset">
+                    {dede:list pagesize='999'}
+                    <li class="project col-8 nested mobile-full mob-over"><a
+                            class="project-link fixed mobile-flex-column" href="[field:arcurl/]">
+                            <div class="project-number col-1 mobile-full">
+                                <span class="project-number">[field:global.autoindex runphp='yes'] if(@me < 10) { @me="0" .@me; }
+                                        [/field:global.autoindex]</span>
+                            </div>
+                            <div class="col-3 project-thumb-fixed mobile-full">
+                                <img class="project-thumb" alt="[field:title/]" src="[field:autolitpic/]">
+                            </div>
+                            <div class="col-4 project-title mobile-full">
+                                <h6 class="active">[field:pubdate function="MyDate('Y-m-d',@me)"/]</h6>
+                                <h2>[field:title function="cutStr(@me,60)"/]</h2>
+                                <p>[field:description function="cutStr(@me,120)"/]</p>
+                                <span class="clickico listicon">
+                                    <i class="iconfontb">&#xe8d4;</i>&ensp;[field:click/]&ensp;&ensp;
+                                    <i class="iconfontb">&#xe616;</i>&ensp;[field:goodpost/]&ensp;&ensp;
+                                    <i class="iconfontb">&#xe60e;</i>&ensp;[field:id runphp='yes'] global $dsql; $row = $dsql->GetOne("SELECT COUNT(*) AS num FROM dede_feedback WHERE aid=@me"); @me=$row['num']; [/field:id]
+                                </span>
+                            </div>
+                        </a></li>
+                    {/dede:list}
+                </ul>
+                <div class="fillwidth-3"></div>
+                <div class="projects col-10 offset-2 nested mobile-full mobile-no-offset">
+                    <ul class="col-8 nested next-shelf pagelist mobile-full">
+                        {dede:pagelist listitem="index,end,pre,next,pageno,option" listsize="5"/}
+                    </ul>
+                </div>
+            </div>
+            {dede:include filename="footer.htm"/}
+        </section>
+    </div>
+    </div>
+
+    <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 可配置参数 - 可以根据需要调整
+        const config = {
+            // 基本配置
+            framesCount: 120,           // 总帧数
+            baseUrl: '/uploads/allimg/3dMovieRenders/2222.', // 图片基础路径
+            coverFrame: 0,              // 封面帧索引 (优先加载并显示)
+            
+            // 移动敏感度
+            moveSensitivity: 5,       // 移动多少像素切换一帧 (值越大越不敏感)
+            
+            // 惯性配置
+            inertiaEnabled: true,      // 是否启用惯性
+            inertiaFactor: 0.6,        // 惯性系数 (0.1-1.0，值越大惯性越强)
+            decelerationRate: 0.92,    // 减速率 (0.8-0.99，值越大减速越慢)
+            initialSpeedThreshold: 0.1,// 启动惯性的最小速度阈值
+            stopSpeedThreshold: 0.05,  // 停止惯性的速度阈值
+            
+            // 自动播放配置
+            autoplay: true,           // 是否开启自动播放
+            autoplaySpeed: 1,       // 自动播放速度 (帧/刷新，值越大速度越快)
+            autoplayDirection: 1,      // 播放方向：1 为正向，-1 为反向
+            pingpongMode: true,        // 是否开启循环回放模式（到达边界后自动反向）
+            autoplayResumeDelay: 5,    // 交互结束后恢复自动播放的延迟时间(秒)
+        };
+        
+        const viewer = document.getElementById('three-d-viewer');
+        const frameElement = document.getElementById('current-frame');
+        const loadingContainer = document.getElementById('loading-container');
+        const frameUrls = [];
+        
+        let isDragging = false;
+        let startX = 0;
+        let lastX = 0;
+        let currentFrame = config.coverFrame;
+        let lastMoveTime = 0;
+        let velocityX = 0;
+        let animationId = null;
+        let autoplayId = null;
+        let accumulatedDeltaX = 0; // 累计的X轴移动距离
+        let currentDirection = config.autoplayDirection; // 当前播放方向
+        let loadedFrames = 0; // 已加载的帧数
+        let isLoadingComplete = false; // 是否加载完成
+        let autoplayResumeTimer = null; // 添加自动播放恢复定时器变量
+        
+        // 设置初始加载状态
+        frameElement.classList.add('loading');
+        
+        // 优先加载封面帧
+        const loadCoverFrame = () => {
+            const paddedIndex = config.coverFrame.toString().padStart(4, '0');
+            const coverUrl = `${config.baseUrl}${paddedIndex}.jpg`;
+            
+            const coverImg = new Image();
+            coverImg.onload = () => {
+                // 封面加载完成后设置图片源
+                frameElement.src = coverUrl;
+            };
+            coverImg.src = coverUrl;
+        };
+        
+        // 预加载所有帧
+        const preloadImages = () => {
+            // 先加载封面帧
+            loadCoverFrame();
+            
+            let loadedCount = 0;
+            
+            for (let i = 0; i < config.framesCount; i++) {
+                const paddedIndex = i.toString().padStart(4, '0');
+                const url = `${config.baseUrl}${paddedIndex}.jpg`;
+                frameUrls.push(url);
+                
+                const img = new Image();
+                img.onload = () => {
+                    loadedCount++;
+                    loadedFrames = Math.floor((loadedCount / config.framesCount) * 100);
+                    
+                    // 所有帧加载完成
+                    if (loadedCount >= config.framesCount) {
+                        isLoadingComplete = true;
+                        // 移除加载动画和loading类
+                        frameElement.classList.remove('loading');
+                        if (loadingContainer) {
+                            loadingContainer.style.display = 'none';
+                        }
+                        
+                        // 开始自动播放
+                        if (!isDragging && !animationId) {
+                            startAutoplay();
+                        }
+                        
+                        // 加载完成后显示通知
+                        if (typeof NoticeManager !== 'undefined') {
+                            NoticeManager.show({
+                                text: '拖拽平移进行交互',
+                                icon: '&#xe658;',
+                                targetId: 'current-frame',
+                                positionMode: 'center',
+                                autoHideDelay: 10,
+                            });
+                        }
+                    }
+                };
+                img.src = url;
+            }
+        };
+        
+        // 更新帧函数
+        const updateFrame = (newFrame) => {
+            // 确保帧索引在有效范围内 (0-29)
+            newFrame = Math.max(0, Math.min(config.framesCount - 1, newFrame));
+            
+            if (newFrame !== currentFrame) {
+                currentFrame = newFrame;
+                // 只有在所有帧都加载完成后才更新
+                if (isLoadingComplete) {
+                    frameElement.src = frameUrls[currentFrame];
+                }
+            }
+        };
+        
+        // 自动播放函数
+        const autoplayAnimation = () => {
+            // 只有在加载完成后才执行自动播放
+            if (!config.autoplay || !isLoadingComplete) return;
+            
+            // 根据当前方向计算下一帧
+            let nextFrame = currentFrame + currentDirection;
+            
+            // 检查是否到达边界
+            if (config.pingpongMode) {
+                // 循环回放模式: 到达边界时改变方向
+                if (nextFrame >= config.framesCount - 1) {
+                    nextFrame = config.framesCount - 1;
+                    currentDirection = -1; // 改变为倒序方向
+                } else if (nextFrame <= 0) {
+                    nextFrame = 0;
+                    currentDirection = 1; // 改变为正序方向
+                }
+            } else {
+                // 普通模式: 到达边界时循环到另一侧
+                if (nextFrame >= config.framesCount) {
+                    nextFrame = 0;
+                } else if (nextFrame < 0) {
+                    nextFrame = config.framesCount - 1;
+                }
+            }
+            
+            updateFrame(nextFrame);
+            
+            // 设置下一次更新
+            autoplayId = setTimeout(() => {
+                requestAnimationFrame(autoplayAnimation);
+            }, 1000 / (30 * config.autoplaySpeed)); // 基于30ps计算间隔时间
+        };
+        
+        // 停止自动播放
+        const stopAutoplay = () => {
+            if (autoplayId) {
+                clearTimeout(autoplayId);
+                autoplayId = null;
+            }
+        };
+        
+        // 开始自动播放
+        const startAutoplay = () => {
+            // 清除可能存在的恢复定时器
+            if (autoplayResumeTimer) {
+                clearTimeout(autoplayResumeTimer);
+                autoplayResumeTimer = null;
+            }
+            
+            // 只有在加载完成后才开始自动播放
+            if (config.autoplay && !autoplayId && !isDragging && isLoadingComplete) {
+                // 重置播放方向为初始配置方向
+                currentDirection = config.autoplayDirection;
+                autoplayAnimation();
+            }
+        };
+        
+        // 修改 startAutoplayWithDelay 函数
+        const startAutoplayWithDelay = () => {
+            // 清除可能存在的恢复定时器
+            if (autoplayResumeTimer) {
+                clearTimeout(autoplayResumeTimer);
+            }
+            
+            // 设置延迟恢复自动播放
+            autoplayResumeTimer = setTimeout(() => {
+                startAutoplay();
+                autoplayResumeTimer = null;
+            }, config.autoplayResumeDelay * 1000);
+        };
+        
+        // 惯性动画
+        const applyMomentum = () => {
+            // 只有在加载完成后才执行惯性动画
+            if (!isLoadingComplete || !config.inertiaEnabled || Math.abs(velocityX) < config.stopSpeedThreshold) {
+                velocityX = 0;
+                cancelAnimationFrame(animationId);
+                animationId = null;
+                
+                // 惯性结束后，延迟恢复自动播放
+                startAutoplayWithDelay();
+                return;
+            }
+            
+            velocityX *= config.decelerationRate; // 减速因子
+            
+            // 计算惯性移动后的帧索引变化
+            const frameChange = velocityX > 0 ? Math.ceil(velocityX) : Math.floor(velocityX);
+            
+            if (frameChange !== 0) {
+                const newFrame = currentFrame - frameChange; // 注意方向
+                updateFrame(newFrame);
+            }
+            
+            animationId = requestAnimationFrame(applyMomentum);
+        };
+        
+        // 阻止触摸设备默认滚动行为
+        viewer.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // 阻止默认行为
+        }, { passive: false });
+        
+        viewer.addEventListener('touchmove', function(e) {
+            e.preventDefault(); // 阻止默认行为
+        }, { passive: false });
+        
+        // 鼠标事件处理
+        viewer.addEventListener('mousedown', function(e) {
+            // 只有在加载完成后才允许拖动
+            if (!isLoadingComplete) return;
+            
+            isDragging = true;
+            startX = e.clientX;
+            lastX = startX;
+            lastMoveTime = Date.now();
+            velocityX = 0;
+            accumulatedDeltaX = 0;
+            viewer.style.cursor = 'grabbing';
+            
+            // 停止自动播放
+            stopAutoplay();
+            
+            // 停止当前的惯性动画
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        });
+        
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                viewer.style.cursor = 'pointer';
+                accumulatedDeltaX = 0;
+                
+                // 开始惯性动画，只有当速度足够大且惯性功能启用时
+                if (isLoadingComplete && config.inertiaEnabled && Math.abs(velocityX) > config.initialSpeedThreshold) {
+                    animationId = requestAnimationFrame(applyMomentum);
+                } else {
+                    // 如果没有足够的速度启动惯性，延迟恢复自动播放
+                    startAutoplayWithDelay();
+                }
+            }
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging || !isLoadingComplete) return;
+            
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastMoveTime;
+            
+            if (deltaTime <= 0) return;
+            
+            const currentX = e.clientX;
+            const deltaX = currentX - lastX;
+            
+            // 累计移动距离
+            accumulatedDeltaX += deltaX;
+            
+            // 计算瞬时速度 (帧/毫秒)，然后转换为帧/动画帧
+            velocityX = (deltaX / deltaTime) * config.inertiaFactor; // 速度系数，调整惯性强度
+            
+            // 计算应该切换的帧数
+            const frameStep = Math.floor(Math.abs(accumulatedDeltaX) / config.moveSensitivity);
+            
+            if (frameStep > 0) {
+                let newFrame;
+                if (accumulatedDeltaX > 0) {
+                    // 向右移动，帧索引减小
+                    newFrame = currentFrame - frameStep;
+                } else {
+                    // 向左移动，帧索引增大
+                    newFrame = currentFrame + frameStep;
+                }
+                
+                // 重置累计距离，但保留余数部分
+                accumulatedDeltaX = accumulatedDeltaX % config.moveSensitivity;
+                
+                updateFrame(newFrame);
+            }
+            
+            lastX = currentX;
+            lastMoveTime = currentTime;
+        });
+        
+        // 触摸事件处理（移动设备）
+        viewer.addEventListener('touchstart', function(e) {
+            // 只有在加载完成后才允许拖动
+            if (!isLoadingComplete) {
+                e.preventDefault();
+                return;
+            }
+            
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            lastX = startX;
+            lastMoveTime = Date.now();
+            velocityX = 0;
+            accumulatedDeltaX = 0;
+            
+            // 停止自动播放
+            stopAutoplay();
+            
+            // 停止当前的惯性动画
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchend', function() {
+            if (isDragging) {
+                isDragging = false;
+                accumulatedDeltaX = 0;
+                
+                // 开始惯性动画
+                if (isLoadingComplete && config.inertiaEnabled && Math.abs(velocityX) > config.initialSpeedThreshold) {
+                    animationId = requestAnimationFrame(applyMomentum);
+                } else {
+                    // 如果没有足够的速度启动惯性，延迟恢复自动播放
+                    startAutoplayWithDelay();
+                }
+            }
+        });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging || !isLoadingComplete) return;
+            
+            // 阻止页面滚动
+            e.preventDefault();
+            
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastMoveTime;
+            
+            if (deltaTime <= 0) return;
+            
+            const currentX = e.touches[0].clientX;
+            const deltaX = currentX - lastX;
+            
+            // 累计移动距离
+            accumulatedDeltaX += deltaX;
+            
+            // 计算瞬时速度
+            velocityX = (deltaX / deltaTime) * config.inertiaFactor;
+            
+            // 计算应该切换的帧数
+            const frameStep = Math.floor(Math.abs(accumulatedDeltaX) / config.moveSensitivity);
+            
+            if (frameStep > 0) {
+                let newFrame;
+                if (accumulatedDeltaX > 0) {
+                    newFrame = currentFrame - frameStep;
+                } else {
+                    newFrame = currentFrame + frameStep;
+                }
+                
+                // 重置累计距离，但保留余数部分
+                accumulatedDeltaX = accumulatedDeltaX % config.moveSensitivity;
+                
+                updateFrame(newFrame);
+            }
+            
+            lastX = currentX;
+            lastMoveTime = currentTime;
+        }, { passive: false });
+        
+        // 处理鼠标进入/离开事件
+        viewer.addEventListener('mouseenter', function() {
+            // 鼠标进入时，可以选择暂停自动播放
+            // stopAutoplay();
+        });
+        
+        viewer.addEventListener('mouseleave', function() {
+            // 鼠标离开时，如果没有正在执行的操作，恢复自动播放
+            if (!isDragging && !animationId) {
+                startAutoplay();
+            }
+        });
+        
+        // 预加载图片
+        preloadImages();
+    });
+    </script>
+</body>
+
+</html>

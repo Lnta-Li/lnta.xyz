@@ -1,0 +1,500 @@
+/* 移动端自适应样式 */
+@media screen and (max-width: 1024px) {
+    .project-area h6, .content-icon h6, .tagtheader h6 {
+        font-size: 50px;
+        position: relative;
+        margin-left: 0;
+        padding-bottom: 4px;
+    }
+}
+@media screen and (max-width: 768px) {
+    :root {
+        --blur-pagebody: 10px; /* 页面隐藏模糊度 10 */
+        --blur-pagebodynav: 1px; /* 页面导航模糊度 1 */
+        --blur-mobnav: 0px; /* 移动端导航模糊度 15 */
+        --blur-imgtitle: 30px; /* 图片预览标题框 30 */
+        --blur-carouseltitle: 50px; /* 轮播图标题框 50 */
+        --backdrop-blur: 15px; /* 图片浏览器的标题模糊效果 15*/
+        --body-scale: 0.9; /* 页面缩放效果 0.9 */
+        --animation-time: 0.3s ; /* 关键帧动画时长 0.3s */
+        --transition-time: 0.3s; /* 动画过渡时长 */
+        --line-height-content: 1.8em; /* 文章页正文行高 */
+        --line-height-after: 1em; /* 文章页段间距 */
+        --fontsize-p: 17px; /* 正文字体大小 */
+        --fontsize-a: 16px; /* a,h6等小号字体大小 */
+        --fontsize-mini: 14px; /* 小字号 */
+    }
+    /* 移动端菜单遮罩层 */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-time) ease;
+        -webkit-transition: opacity var(--transition-time) ease;
+    }
+    
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    /* 通用布局调整 */
+    .mobile-full {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .tagheader {
+        padding-top: 55px;
+    }
+
+    .switch-wrapper {
+        font-size: 16px;
+    }
+
+    /* 瀑布流移动端样式 */
+    .waterfall-container {
+        column-count: 2 !important;
+        column-gap: 10px !important;
+    }
+    
+    .waterfall-item {
+        margin-bottom: 10px !important;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+    
+    .waterfall-img {
+        border-radius: 0; 
+    }
+    
+    .waterfall-content {
+        padding: 8px !important;
+    }
+
+    .waterfall-link {
+        margin-bottom: 0px!important; 
+        background: var(--solid-color-3)
+    }
+    
+    .waterfall-title {
+        font-size: 14px !important;
+        -webkit-line-clamp: 2 !important;
+        margin-bottom: 5px !important;
+        margin: 0!important;
+    }
+    
+    .waterfall-date {
+        font-size: 12px !important;
+    }
+    
+    /* 移动端栏目标题样式 */
+    .channel-title {
+        padding: 0 15px;
+    }
+    
+    .channel-title h1 {
+        font-size: 32px;
+        padding-bottom: 8px;
+    }
+    
+    .channel-title h1::after {
+        width: 60px;
+        height: 2px;
+    }
+    
+    .Content-Type img, .image-caption {
+        width: 100%!important;
+    }
+
+
+    .diy-2 .image-box {
+        display: block;
+        margin-bottom: var(--line-height-after);
+        padding-right: 0;
+    }
+
+    .mobile-half {
+        width: 50% !important;
+        float: left !important;
+        box-sizing: border-box !important;
+    }
+    
+    .header-text {
+        width: 100% !important;
+        padding: 0 10px;
+    }
+
+    .header-image-wrapper {
+        width: 80% !important;
+    }
+
+    .mobile-no-offset {
+        margin-left: 0 !important;
+    }
+    
+    .about-img {
+        width: 100% !important;
+    }
+
+    .project-area img {
+        max-height: 400px !important;
+    }
+
+    .about-header {
+        padding-top: 55px !important;
+        padding-bottom: 20px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .project-area h6, .content-icon h6, .tagtheader h6 {
+        position: relative;
+        margin-left: 0;
+    }
+
+    .tagtheader .tags {
+        margin-bottom: 0px !important;
+        padding: 20px 0 0 0 !important;
+    }
+
+    .mobile-hidden {
+        display: none !important;
+    }
+    
+    .mobile-reset {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .project-title {
+        margin-top: 0!important;
+    }
+
+    /* 导航菜单 */
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        padding: 20px;
+        right: 0;
+    }
+    
+    .mobile-menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--menu-toggle-color);
+        margin-bottom: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        transition: transform var(--transition-time) ease,
+                    width var(--transition-time) ease,
+                    opacity var(--transition-time) ease;
+        -webkit-transition: transform var(--transition-time) ease,
+                            width var(--transition-time) ease,
+                            opacity var(--transition-time) ease;
+    }
+    
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 60vw !important;
+        height: 100vh;
+        background-color: var(--menu-bg-color);
+        z-index: 999;
+        padding: 0 20px !important;
+        transition: left var(--transition-time) ease,
+                    background-color var(--transition-time) ease;
+        -webkit-transition: left var(--transition-time) ease,
+                            background-color var(--transition-time) ease;
+        backdrop-filter: blur(var(--blur-mobnav));
+        -webkit-backdrop-filter: blur(var(--blur-mobnav));
+    }
+    
+    .waterfall-img img {
+        min-height: 10vh;
+    }
+
+
+    .navwidth {
+       max-width: none; 
+    }
+    
+    .home-active .home, .mobile-nav .active {
+        color: var(--menu-text-active);
+    }
+
+    .header {
+        margin-left: 0;
+        width: 100%;
+        padding: 55px 15px 30px;
+    }
+
+    .header .col-7 {
+        padding: 0;
+    }
+
+    .home-active .projects-wrapper {
+        margin-top: -80px !important;
+        padding-top: 100px !important;
+    }
+
+    .projects-wrapper {
+        margin-top: -135px !important;
+        padding-top: 130px !important;
+    }
+
+    .actcontent-header {
+        padding: 55px 0 0 0 !important;
+        margin-bottom: 32px !important;
+    }
+
+    .actcontent-header .project-title {
+        margin-bottom: 15px !important;
+    }
+
+    .home-active .header-image {
+        height: 300px !important;
+    }
+
+    .mobile-nav.active {
+        left: 0;
+    }
+    
+    .mobile-nav a {
+        display: block;
+        margin-bottom: 30px;
+        font-size: 22px;
+        color: var(--solid-color-2);
+    }
+    
+    .mobile-flex-column {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    
+    .mobile-unflip {
+        flex-direction: column !important;
+    }
+    
+    /* 图片调整 */
+    .project-thumb, .header-image img {
+        width: 100% !important;
+    }
+
+    .sparkle {
+        display: none;
+    }
+
+    .mob-over {
+        padding: 0 !important;
+    }
+
+    #project-1 .project-number,#project-5 .project-number {
+        width: 48px !important;
+    }
+    
+    #project-2, #project-3, #project-4, #project-5, #project-6 {
+        margin-top: 20px !important;
+    }
+
+    #project-4 a {
+        width: 300px !important;
+    }
+    /* 文字大小调整 */
+    h1 {
+        font-size: 30px !important;
+    }
+    
+    h2 {
+        font-size: 20px !important;
+    }
+    
+    h3 {
+        font-size: 24px !important;
+    }
+    
+    h4 {
+        font-size: 14px !important;
+    }
+
+    p {
+        /* font-size: 17px !important; */
+    }
+    
+    /* 页脚调整 */
+    .mobile-footer {
+        width: 100% !important;
+        padding: 15px !important;
+        text-align: center !important;
+    }
+    
+    /* 分页调整 */
+    .pagelist {
+        text-align: center !important;
+    }
+    
+    .pagelist a, .pagelist span {
+        margin: 0 3px !important;
+        padding: 3px 8px !important;
+    }
+
+    .next-shelf .shelf-project-link {
+        display: block;
+    }
+
+    .next-shelf-label {
+        text-align: right;
+    }
+
+    .image-caption {
+        font-size: var(--fontsize-mini) !important;
+        height: auto !important;
+    }
+
+    .small-box {
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .small-img-notice, .img-float-bar {
+        display: none !important;
+    }
+
+    .tagtheader {
+        padding-bottom: 0 !important;
+    }
+
+    .fillheight-1 {
+        display: none;
+    }
+
+    .content-width {
+        width: 100%!important; 
+    }
+
+    .fillwidth-1 {
+       height: 0px; 
+    }
+
+    .fillwidth-4 {
+        height: 50px;
+    }
+    
+    .fillwidth-archeader {
+        height: 0;
+    }
+    
+    .fillwidth-5 {
+        height: 50px;
+    }
+
+    .content-area {
+       padding: 0 4vw!important;
+    }
+    
+    .image-carousel {
+        border-radius: 0!important; 
+    }
+
+    .default-img {
+        border-radius: 0!important; 
+        margin-bottom: -20px;
+    }
+
+    .pagtype-arc .content-width {
+        min-width: 0!important;
+    }
+
+    .project-header {
+        width: 100vw!important;
+    }
+
+    .default-img img {
+        border-radius: 0 !important;
+        min-height: 28vh;
+        object-fit: cover;
+    }
+
+    .next-title {
+        padding: 0;
+    }
+
+    .carousel-item {
+        min-height: 20vh!important; 
+    }
+    
+    .diy-1 {
+        display: block;
+    }
+
+    .diy-1 img, .diy-1 video {
+        width: 100%!important;
+        border-radius: 8px;
+        margin-bottom: var(--line-height-after);
+    }
+
+    .diy-container {
+        padding: 0;
+        position: static;
+        overflow: visible
+    }
+
+    .diy-project-intro {
+        flex-direction: column;
+    }
+
+    .diy-intro-content {
+        max-width: 100%;
+    }
+
+    .diy-color-palette {
+        flex-direction: row-reverse;
+    }
+
+    .diy-footer-logo-container img {
+        max-width: 75%;
+    }
+    .diy-visual-background {
+        height: 100vh;
+    }
+
+    .left-content {
+        width: 100%;
+    }
+
+    .right-content {
+        width: 70%;
+        text-align: right;
+    }
+
+    .notice-bubble {
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        max-width: 80%;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        bottom: 20px;
+        position: fixed;
+    }
+
+    .file-name {
+        max-width: 30vw;
+    }
+
+}

@@ -1,0 +1,42 @@
+# IDE 和编辑器文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志和缓存文件
+*.log
+
+# 数据库管理文件
+/phpMyAdmin4.8.5/
+
+# 系统缓存
+/data/*
+!/data/admin/
+!/data/backupdata/
+!/data/enums/
+!/data/js/
+!/data/mail/
+!/data/mark/
+!/data/module/
+!/data/payment/
+!/data/rss/
+!/data/safe/
+!/data/tag/
+!/data/textdata/
+!/data/vote/
+!/data/common.inc.php
+!/data/config.cache.bak.php
+!/data/config.cache.inc.php
+!/data/config.file.inc.php
+!/data/downmix.data.php
+!/data/helper.inc.php
+!/data/login.data.php
+!/data/password.data.php
+!/data/safequestions.php
+!/data/smiley.data.php
+!/data/template.rand.php

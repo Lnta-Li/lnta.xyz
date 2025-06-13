@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+{dede:include filename="theme.htm"/}
+<meta name="theme_mode" content="{dede:theme_mode/}">
+<meta name="small_img" content="{dede:field.small_img/}">
+<meta name="hide_thumb" content="{dede:field.hide_thumb/}">
+<meta name="album_haspics" content="{dede:albumhaspics/}">
+<link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/feedback.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/image-carousel.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/image-caption.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+
+<script language="javascript" type="text/javascript">
+//检查用户登录状态，通过AJAX请求获取用户登录信息，并更新反馈区域
+function CheckLogin() {
+  var taget_obj = document.getElementById('_ajax_feedback');
+  myajax = new DedeAjax(taget_obj, false, false, '', '', '');
+  myajax.SendGet2("{dede:global.cfg_cmsurl/}/member/ajax_feedback.php");
+  DedeXHTTP = null;
+}
+//检查评论提交，验证评论内容是否为空
+function checkSubmit() {
+  if (document.feedback.msg.value != '') {
+    document.feedback.submit();
+  } else {
+    alert("评论内容不能为空！");
+  }
+}
+// 处理文章的点赞/踩功能，使用Cookie记录用户操作状态，支持取消和切换
+// ftype 操作类型，'good'为点赞，'bad'为踩；aid 文章ID
+function postDigg(ftype, aid) {
+  var taget_obj = document.getElementById('newdigg');
+  var saveid = GetCookie('diggid');
+  var currentState = 0;
+  // 解析当前状态
+  if (saveid) {
+    var states = saveid.split('|');
+    for (var i = 0; i < states.length; i++) {
+      var parts = states[i].split(':');
+      if (parts[0] == aid) {
+        currentState = parseInt(parts[1]);
+        break;
+      }
+    }
+  }
+  // 计算新状态
+  var newState = 0;
+  if (ftype == 'good') {
+    if (currentState == 1) {
+      newState = 0; // 取消点赞
+    } else if (currentState == -1) {
+      newState = 1; // 从踩改为点赞
+      var cancelUrl = "{dede:global.cfg_phpurl/}/digg_ajax.php?action=bad&id=" + aid + "&state=0";
+      var tempAjax = new DedeAjax(taget_obj, false, false, '', '', '');
+      tempAjax.SendGet2(cancelUrl);
+      DedeXHTTP = null;
+    } else {
+      newState = 1; // 首次点赞
+    }
+  } else {
+    if (currentState == -1) {
+      newState = 0; // 取消踩
+    } else if (currentState == 1) {
+      newState = -1; // 从点赞改为踩
+      var cancelUrl = "{dede:global.cfg_phpurl/}/digg_ajax.php?action=good&id=" + aid + "&state=0";
+      var tempAjax = new DedeAjax(taget_obj, false, false, '', '', '');
+      tempAjax.SendGet2(cancelUrl);
+      DedeXHTTP = null;
+    } else {
+      newState = -1; // 首次踩
+    }
+  }
+  // 更新Cookie
+  var newSaveid = '';
+  if (saveid) {
+    var states = saveid.split('|');
+    var found = false;
+    for (var i = 0; i < states.length; i++) {
+      var parts = states[i].split(':');
+      if (parts[0] == aid) {
+        if (newState != 0) {
+          newSaveid += (newSaveid ? '|' : '') + aid + ':' + newState;
+        }
+        found = true;
+      } else {
+        newSaveid += (newSaveid ? '|' : '') + states[i];
+      }
+    }
+    if (!found && newState != 0) {
+      newSaveid += (newSaveid ? '|' : '') + aid + ':' + newState;
+    }
+  } else if (newState != 0) {
+    newSaveid = aid + ':' + newState;
+  }
+  SetCookie('diggid', newSaveid, 30);
+  // 发送状态更新请求
+  myajax = new DedeAjax(taget_obj, false, false, '', '', '');
+  var url = "{dede:global.cfg_phpurl/}/digg_ajax.php?action=" + ftype + "&id=" + aid + "&state=" + newState;
+  myajax.SendGet2(url);
+  DedeXHTTP = null;
+  // 更新页面显示
+  updateDiggDisplay();
+}
+// 获取文章的点赞/踩统计数据
+function getDigg(aid) {
+  var taget_obj = document.getElementById('newdigg');
+  myajax = new DedeAjax(taget_obj, false, false, '', '', '');
+  myajax.SendGet2("{dede:global.cfg_phpurl/}/digg_ajax.php?id=" + aid);
+  DedeXHTTP = null;
+  updateDiggDisplay();
+}
+//更新点赞/踩的显示状态
+// 解析服务器返回的JSON数据，更新页面上的数据显示和按钮状态
+function updateDiggDisplay() {
+  var newdigg = document.getElementById('newdigg');
+  if (!newdigg || !newdigg.textContent) return;
+  try {
+    var data = JSON.parse(newdigg.textContent);
+    var goodItem = document.querySelector('.stat-item[onclick*="postDigg(\'good\'"]');
+    var badItem = document.querySelector('.stat-item[onclick*="postDigg(\'bad\'"]');
+    if (goodItem && badItem) {
+      goodItem.querySelector('.stat-value i').nextSibling.textContent = parseFloat(data.goodper).toFixed(1) + '%';
+      goodItem.querySelector('.stat-label').textContent = data.goodpost + ' Like';
+      badItem.querySelector('.stat-value i').nextSibling.textContent = parseFloat(data.badper).toFixed(1) + '%';
+      badItem.querySelector('.stat-label').textContent = data.badpost + ' Dislike';
+      goodItem.classList.remove('active');
+      badItem.classList.remove('active');
+      if (data.userState == 1) {
+        goodItem.classList.add('active');
+      } else if (data.userState == -1) {
+        badItem.classList.add('active');
+      }
+    }
+  } catch (e) {
+    console.error('Error updating digg display:', e);
+  }
+}
+// 页面加载完成后，从cookie中获取点赞状态并更新按钮状态
+document.addEventListener('DOMContentLoaded', function () {
+  var aid = {dede:field.id/};
+  var saveid = GetCookie('diggid');
+  var currentState = 0;
+  if (saveid) {
+    var states = saveid.split('|');
+    for (var i = 0; i < states.length; i++) {
+      var parts = states[i].split(':');
+      if (parts[0] == aid) {
+        currentState = parseInt(parts[1]);
+        break;
+      }
+    }
+  }
+  var goodItem = document.querySelector('.stat-item[onclick*="postDigg(\'good\'"]');
+  var badItem = document.querySelector('.stat-item[onclick*="postDigg(\'bad\'"]');
+  if (goodItem && badItem) {
+    goodItem.classList.remove('active');
+    badItem.classList.remove('active');
+    if (currentState == 1) {
+      goodItem.classList.add('active');
+    } else if (currentState == -1) {
+      badItem.classList.add('active');
+    }
+  }
+});
+</script>
+</head>
+<body class="articleview tra-bg-color">
+  <!---加载Nav-->
+  {dede:include filename="head.htm"/}
+  <div id="pagebody">
+    <!--页面内容-->
+    <div class="page-wrapper pagtype" style="display: flex;">
+      <div class="fillheight-1"></div>
+      <div class="content-width">
+        <div class="fillwidth-archeader"></div>
+        <!-- 图片区域由JS根据meta动态插入 -->
+        <div id="image-area-placeholder"></div>
+        <script>
+          // 根据meta标签判断并动态插入图片相关DOM
+          var hideThumb = document.querySelector('meta[name="hide_thumb"]');
+          var albumHasPics = document.querySelector('meta[name="album_haspics"]');
+          var placeholder = document.getElementById('image-area-placeholder');
+          var pagtype = document.querySelector('.pagtype');
+
+          // 获取meta的值
+          var hideThumbVal = hideThumb ? hideThumb.getAttribute('content') : '';
+          var albumHasPicsVal = albumHasPics ? albumHasPics.getAttribute('content') : '';
+
+          if (albumHasPicsVal === '1') {
+            // 有图集，插入.picbox结构
+            var picboxHTML = `
+            <div class="image-carousel picbox">
+              <div class="carousel-container">
+                {dede:field name='imgurls' alt='图片输出区'}
+                <div class="carousel-item">
+                  <img src='[field:imgsrc/]' alt='[field:alttext function="cn_substr(@me,36)"/]' />
+                </div>
+                {/dede:field}
+              </div>
+            </div>`;
+            placeholder.insertAdjacentHTML('beforeend', picboxHTML);
+            pagtype.classList.remove('pagtype-arc');
+            pagtype.classList.add('pagtype-img');
+          } else if (hideThumbVal === '0') {
+            // 没有图集但允许显示缩略图，插入.default-img结构
+            var defaultImgHTML = `
+            <div class="default-img">
+              <img class="project-header" alt="{dede:field.title/}" src="{dede:field.autolitpic/}">
+            </div>`;
+            placeholder.insertAdjacentHTML('beforeend', defaultImgHTML);
+            pagtype.classList.remove('pagtype-img');
+            pagtype.classList.add('pagtype-arc');
+          } else {
+            // 两者都不显示
+            pagtype.classList.remove('pagtype-img');
+            pagtype.classList.add('pagtype-arc');
+          }
+        </script>
+
+        <div class="content-area">
+          <div class="fillwidth-4"></div>
+          <h1><strong>{dede:field.title/}</strong></h1>
+          <h2 class="project-description">{dede:field.description/}</h2>
+          <div class="tags">
+            <ul>{dede:tag}<li><a href='[field:link/]'>[field:tag /]</a></li>{/dede:tag}</ul>
+          </div>
+          <div class="fillwidth-2"></div>
+          <section class="Content-Type content-icon">
+            {dede:field.body/}
+          </section>
+
+          <!--- 作者信息区域 -->
+          <div class="conversation-starters">
+            <h3>Reviews</h3>
+          </div>
+          <div class="author-info">
+            <div class="author-header">
+              <span class="author-label">作者</span>
+              <span class="author-name">{dede:field.writer/}</span>
+            </div>
+            <div class="author-stats">
+              <div class="stat-item" onclick="javascript:postDigg('good',{dede:field.id/})">
+                <span class="stat-value"><i><svg t="1743482834616" class="mysvg" viewBox="0 0 1024 1024" version="1.1"
+                      xmlns="http://www.w3.org/2000/svg" p-id="983" width="22" height="22">
+                      <path
+                        d="M512 961.28c-15.36 0-30.72-4.48-43.52-12.8l-24.96-16s-101.12-64.64-202.24-158.08c-60.8-56.32-110.08-112-145.92-165.76a510.72 510.72 0 0 1-55.04-103.68C24.32 462.72 16 421.12 16 380.8a314.496 314.496 0 0 1 95.36-225.92c29.44-28.8 64-51.84 102.4-67.84 94.08-39.04 206.08-30.72 293.76 23.04 1.28 0.64 3.2 1.92 4.48 2.56 1.28-1.28 3.2-1.92 4.48-2.56 87.68-53.12 199.68-61.44 293.76-23.04 38.4 16 72.96 39.04 102.4 67.84 30.08 29.44 53.12 63.36 69.12 101.12 17.28 39.68 25.6 81.92 25.6 124.8 0 40.32-8.32 81.92-24.32 124.16-12.8 33.92-31.36 68.48-55.04 103.68-36.48 53.76-85.12 109.44-146.56 165.76a1610.048 1610.048 0 0 1-201.6 157.44l-25.6 16c-13.44 8.32-28.8 12.8-43.52 12.8z"
+                        p-id="984"></path>
+                    </svg></i>{dede:field.goodper function='number_format(@me,1)'/}%</span>
+                <span class="stat-label">{dede:field.goodpost/} Like</span>
+              </div>
+              <div class="stat-item" onclick="javascript:postDigg('bad',{dede:field.id/})">
+                <span class="stat-value"><i><svg t="1743484092045" class="mysvg down" viewBox="0 0 1024 1024"
+                      version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1130" width="22" height="22">
+                      <path
+                        d="M512 16C238.72 16 16 238.72 16 512S238.72 1008 512 1008s496-222.72 496-496S785.28 16 512 16zM288 416c0-16.64 7.04-33.28 18.56-45.44 14.72-14.72 37.12-21.12 58.24-17.28 3.84 0 7.68 1.92 11.52 3.84 3.84 1.28 7.68 3.2 11.52 5.76 3.2 1.92 6.4 5.12 9.6 7.68 11.52 12.16 18.56 28.8 18.56 45.44 0 8.32-1.92 16.64-5.12 24.32-3.2 8.32-7.68 14.72-13.44 21.12l-9.6 7.68c-3.84 2.56-7.68 4.48-11.52 5.76-3.84 1.92-7.68 3.2-11.52 3.84-4.48 0-8.32 1.28-12.8 1.28-16.64 0-33.28-7.04-45.44-18.56-5.76-6.4-10.24-12.8-13.44-21.12a63.68 63.68 0 0 1-5.12-24.32z m407.04 311.04a48.64 48.64 0 0 1-65.28-19.2c-26.88-48-65.28-71.04-118.4-71.04s-91.52 22.4-117.76 69.76c-12.8 23.04-42.24 31.36-65.28 18.56a48.192 48.192 0 0 1-18.56-65.28c42.88-78.08 112.64-119.68 201.6-119.68s158.72 41.6 202.24 120.96c12.8 23.04 4.48 52.48-18.56 65.28z m35.84-286.72c-3.2 7.68-7.68 14.72-13.44 21.12-12.16 11.52-28.8 18.56-45.44 18.56-8.32 0-16.64-1.92-24.32-5.12-8.32-3.2-14.72-7.68-21.12-13.44-5.76-6.4-10.24-13.44-13.44-21.12s-5.12-16-5.12-24.32c0-4.48 0-8.32 1.28-12.8 0.64-3.84 1.92-7.68 3.84-11.52 1.28-3.84 3.2-7.68 5.76-11.52 1.92-3.2 5.12-6.4 7.68-9.6a66.048 66.048 0 0 1 90.88 0l7.68 9.6c2.56 3.84 4.48 7.68 5.76 11.52 1.92 3.84 3.2 7.68 3.84 11.52 0.64 4.48 1.28 8.32 1.28 12.8 0 8.32-1.92 16.64-5.12 24.32z"
+                        p-id="1131"></path>
+                    </svg></i>{dede:field.badper function='number_format(@me,1)'/}%</span>
+                <span class="stat-label">{dede:field.badpost/} Dislike</span>
+              </div>
+              <div class="stat-item" id="comment-trigger">
+                <span class="stat-value"><i><svg t="1743484133724" class="mysvg" viewBox="0 0 1024 1024" version="1.1"
+                      xmlns="http://www.w3.org/2000/svg" p-id="1424" width="22" height="22">
+                      <path
+                        d="M514.56 16C242.56 16 21.12 224 21.12 480c0 110.08 41.6 215.04 116.48 298.88l-53.76 165.12c-4.48 14.72-2.56 30.72 6.4 42.88 8.96 12.16 23.04 19.84 38.4 19.84 7.04 0 44.16-1.28 154.24-23.04 71.04-14.08 120.32-35.84 144-48 28.8 5.12 57.6 7.68 87.04 7.68 272 0 493.44-208 493.44-464S786.56 16 514.56 16zM333.44 525.44c-6.4 5.76-13.44 10.24-21.12 13.44a63.68 63.68 0 0 1-69.76-13.44c-5.76-6.4-10.24-13.44-14.08-21.12-3.2-7.68-4.48-16-4.48-24.32s1.28-16.64 5.12-24.32c3.2-7.68 7.68-14.72 13.44-21.12 5.76-5.76 12.8-10.24 21.12-13.44 23.68-10.24 51.84-4.48 69.76 13.44 5.76 6.4 10.24 12.8 13.44 21.12a63.68 63.68 0 0 1-13.44 69.76z m224 0c-6.4 5.76-13.44 10.24-21.12 13.44a63.68 63.68 0 0 1-69.76-13.44A63.36 63.36 0 0 1 448 480c0-8.32 1.28-16.64 5.12-24.32 3.2-7.68 7.68-14.72 13.44-21.12 23.68-23.68 67.2-23.68 90.88 0 5.76 6.4 10.24 13.44 13.44 21.12a63.68 63.68 0 0 1-13.44 69.76z m224 0c-12.16 12.16-28.16 18.56-45.44 18.56a63.36 63.36 0 0 1-58.88-88.32c3.2-8.32 7.68-14.72 13.44-21.12 23.68-23.68 66.56-23.68 90.88 0 5.76 6.4 10.24 13.44 13.44 21.12a63.68 63.68 0 0 1-13.44 69.76z"
+                        p-id="1425"></path>
+                    </svg></i>{dede:field.id runphp='yes'} global $dsql; $row = $dsql->GetOne("SELECT COUNT(*) AS num
+                  FROM
+                  dede_feedback WHERE aid=@me"); @me=$row['num']; {/dede:field.id}+</span>
+                <span class="stat-label" style="cursor: pointer;">Comment</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="newdigg" id="newdigg" style="display:none;">
+            <!--- 这个div用于AJAX更新数据 -->
+          </div>
+          <!--- 评论区和推荐阅读 -->
+          <div class="conversation-starters">
+            <h3>Comment</h3>
+            {dede:include file='ajaxfeedback.htm' /}
+          </div>
+
+          <section class="next-shelf">
+            <li class="project" style="max-width: 70%;">
+              <a class="shelf-project-link" href="{dede:prenext get='preurl'/}">
+                <h6 class="active" style="margin-bottom: 0;">Previous</h6>
+                <div class="next-title">{dede:prenext get='prename'/}</div>
+              </a>
+            </li>
+            <li class="project" style="text-align: right;max-width: 70%;">
+              <a class="shelf-project-link" href="{dede:prenext get='nexturl'/}">
+                <div class="next-title">{dede:prenext get='nextname'/}</div>
+                <h6 class="active" style="margin-bottom: 0;">Next</h6>
+              </a>
+            </li>
+          </section>
+          <div class="fillwidth-2"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 评论表单弹出层 -->
+  <div class="comment-form-overlay" id="comment-overlay"></div>
+  <div class="comment-form-container" id="comment-form">
+    <div class="dede_comment_post">
+      <form action="#" method="post" name="feedback">
+        <input type="hidden" name="dopost" value="send" />
+        <input type="hidden" name="comtype" value="comments">
+        <input type="hidden" name="aid" value="{dede:field name=" id"/}" />
+        <input type="hidden" name="fid" id='feedbackfid' value="0" />
+        <div class="dcmp-content">
+          <textarea cols="60" name="msg" rows="5" class="ipt-txt"></textarea>
+        </div>
+        <div class="dcmp-post">
+          <div class="dcmp-userinfo" id="_ajax_feedback">
+            <input type="text" name="username" size="12" class="ipt-txt" placeholder="昵称" />
+            <input type="checkbox" name="notuser" id="dcmp-submit-guest" />
+            <label for="dcmp-submit-guest" />匿名</label>
+            {dede:php} if($cfg_mb_open=='Y') { echo '
+            <script language="javascript" type="text/javascript">CheckLogin();</script>'; } {/dede:php}
+            <button type="button" onClick='PostComment()'>评论</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {dede:include file='code-highlight.htm' /}
+  <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
+  <script src="{dede:global.cfg_templets_skin/}/js/image-caption.js"></script><!-- 图片标题 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script><!-- 手机导航栏 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/image-carousel.js"></script><!-- 图片轮播 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/like-particles.js"></script><!-- 点赞粒子效果 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/media-preview.js"></script><!-- 图片预览 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/diy-visual-sync.js"></script><!-- DIY视觉背景同步 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/notice.js"></script><!-- 弹窗消息通知 -->
+
+</body>
+
+</html>

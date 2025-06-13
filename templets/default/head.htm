@@ -1,0 +1,130 @@
+<style>
+/* 为了方便更新鼠标悬浮特殊样式，将cursor图片作为后台自定义变量进行调用 */
+.header-image:hover {
+    cursor: url({dede:global.cfg_cursor/}), pointer;
+}
+/* PT Mono本地字体正常加载，因为nav使用了这个字体需要优先加载且字体包文件仅17kb，阿里妈妈方圆体字体文件较大，使用异步加载字体 */
+@font-face {
+  font-family: 'PT Mono';
+  src: url('{dede:global.cfg_templets_skin/}/fonts/PTMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/* 为了方便更新，将本站字体及iconfont在线链接作为后台自定义变量进行调用 */
+{dede:global.cfg_font_icon/}
+</style>
+<div class="page-wrapper">
+  <div class="mobile-menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="navigation navwidth mobile-nav">
+    <a class="home" href="{dede:global.cfg_indexurl/}">Home</a>
+    {dede:channel type='top' row='10' currentstyle="<a class='active' href='~typelink~' ~rel~><span>~typename~</span></a>"}
+    <a class="" href="[field:typeurl/]">[field:typename/]</a>
+    {/dede:channel}
+
+    <div class="switch-wrapper">
+      <div id="theme-mode-notice"><div class="polygon-bg active"></div></div>
+      <input type="radio" name="theme" id="light" value="0">
+      <input type="radio" name="theme" id="dark" value="1">
+      <label for="light" class="light"><i class="iconfontb">&#xe95f;</i></label>
+      <label for="dark" class="dark"><i class="iconfontb">&#xe635;</i></label>
+      <span class="slider"></span>
+    </div>
+
+  </nav>
+</div>
+<!-- 平滑滚动到锚点 和 阿里妈妈方圆体字体异步加载的JavaScript -->
+<script>
+// 阿里妈妈方圆体字体文件较大，使用异步加载字体
+function loadFonts() {
+    const fonts = [
+        {
+            family: 'AlimamaFangYuanTiVF',
+            url: '{dede:global.cfg_templets_skin/}/fonts/AlimamaFangYuanTiVF-Thin.ttf',
+            weight: '100',
+            style: 'normal'
+        }
+    ];
+
+    fonts.forEach(font => {
+        const fontFace = new FontFace(font.family, `url(${font.url})`, {
+            weight: font.weight,
+            style: font.style
+        });
+        fontFace.load().then(loadedFace => document.fonts.add(loadedFace));
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadFonts);
+
+document.addEventListener('DOMContentLoaded', function() {
+  // 点击事件委托到document上
+  document.addEventListener('click', function(e) {
+    // 检查是否点击的是链接
+    var target = e.target;
+    while (target && target.tagName !== 'A') {
+      target = target.parentNode;
+      if (!target) return;
+    }
+    
+    // 检查链接是否包含hash且是当前页面内的锚点
+    var href = target.getAttribute('href');
+    if (!href) return;
+    
+    // 仅处理当前页面内的锚点链接
+    if (href.charAt(0) === '#') {
+      e.preventDefault();
+      
+      var targetId = href.substring(1);
+      var targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        // 计算目标位置
+        var targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        
+        // 平滑滚动
+        smoothScroll(targetPosition, 500);
+        
+        // 更新URL
+        if (history.pushState) {
+          history.pushState(null, null, href);
+        } else {
+          // 兼容旧浏览器
+          window.location.hash = href;
+        }
+      }
+    }
+  });
+  
+  // 自定义平滑滚动函数
+  function smoothScroll(to, duration) {
+    var start = window.pageYOffset;
+    var change = to - start;
+    var startTime = performance.now();
+    
+    function animate(currentTime) {
+      var timeElapsed = currentTime - startTime;
+      var progress = Math.min(timeElapsed / duration, 1);
+      
+      // 使用缓动函数使滚动更自然
+      progress = easeInOutQuad(progress);
+      
+      window.scrollTo(0, start + change * progress);
+      
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animate);
+      }
+    }
+    
+    // 缓动函数
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+    
+    requestAnimationFrame(animate);
+  }
+});
+</script>

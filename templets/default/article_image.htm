@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+{dede:include filename="theme.htm"/}
+<meta name="theme_mode" content="{dede:theme_mode/}">
+<meta name="small_img" content="{dede:field.small_img/}">
+<meta name="hide_thumb" content="{dede:field.hide_thumb/}">
+<meta name="album_haspics" content="{dede:albumhaspics/}">
+<link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/feedback.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/image-carousel.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/image-caption.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+</head>
+<body class="articleview tra-bg-color">
+  <!---加载Nav-->
+  {dede:include filename="head.htm"/}
+  <div id="pagebody">
+    <!--页面内容-->
+    <div class="page-wrapper pagtype" style="display: flex;">
+      <div class="fillheight-1"></div>
+      <div class="content-width">
+        <div class="fillwidth-archeader"></div>
+        <!-- 图片区域由JS根据meta动态插入 -->
+        <div id="image-area-placeholder"></div>
+        <script>
+          // 根据meta标签判断并动态插入图片相关DOM
+          var hideThumb = document.querySelector('meta[name="hide_thumb"]');
+          var albumHasPics = document.querySelector('meta[name="album_haspics"]');
+          var placeholder = document.getElementById('image-area-placeholder');
+          var pagtype = document.querySelector('.pagtype');
+
+          // 获取meta的值
+          var hideThumbVal = hideThumb ? hideThumb.getAttribute('content') : '';
+          var albumHasPicsVal = albumHasPics ? albumHasPics.getAttribute('content') : '';
+
+          if (albumHasPicsVal === '1') {
+            // 有图集，插入.picbox结构
+            var picboxHTML = `
+            <div class="image-carousel picbox">
+              <div class="carousel-container">
+                {dede:field name='imgurls' alt='图片输出区'}
+                <div class="carousel-item">
+                  <img src='[field:imgsrc/]' alt='[field:alttext function="cn_substr(@me,36)"/]' />
+                </div>
+                {/dede:field}
+              </div>
+            </div>`;
+            placeholder.insertAdjacentHTML('beforeend', picboxHTML);
+            pagtype.classList.remove('pagtype-arc');
+            pagtype.classList.add('pagtype-img');
+          } else if (hideThumbVal === '0') {
+            // 没有图集但允许显示缩略图，插入.default-img结构
+            var defaultImgHTML = `
+            <div class="default-img">
+              <img class="project-header" alt="{dede:field.title/}" src="{dede:field.autolitpic/}">
+            </div>`;
+            placeholder.insertAdjacentHTML('beforeend', defaultImgHTML);
+            pagtype.classList.remove('pagtype-img');
+            pagtype.classList.add('pagtype-arc');
+          } else {
+            // 两者都不显示
+            pagtype.classList.remove('pagtype-img');
+            pagtype.classList.add('pagtype-arc');
+            
+            // 添加填充div
+            const contentArea = document.querySelector('.content-area');
+            const fillDiv = document.createElement('div');
+            fillDiv.className = 'fillwidth-5';
+            contentArea.insertBefore(fillDiv, contentArea.firstChild);
+          }
+        </script>
+
+        <div class="content-area">
+          <div class="fillwidth-5"></div>
+          <h1><strong>{dede:field.title/}</strong></h1>
+          <h2 class="project-description">{dede:field.description/}</h2>
+          <div class="tags">
+            <ul>{dede:tag}<li><a href='[field:link/]'>[field:tag /]</a></li>{/dede:tag}</ul>
+          </div>
+          <div class="fillwidth-3"></div>
+          <section class="Content-Type content-icon">
+            {dede:field.body/}
+          </section>
+          <div class="fillwidth-3"></div>
+          <!--- 随机推荐 -->
+          <div class="conversation-starters">
+            <h3>ReadMore</h3>
+            <dd id='ReadMore'>
+              {dede:arclist typeid='top' row='10' titlelen='80' orderby='rand'}
+              <div class="decmt-box2">
+                <a href="[field:arcurl/]">
+                  <img src='[field:subpic/]' height='40' width='40' loading="lazy" />
+                  <div class="content">
+                    <span class="fl">[field:typename/] · [field:pubdate function="MyDate('Y-m-d',@me)"/]</span>
+                    <div class="text">[field:title/]</div>
+                  </div>
+                </a>
+              </div>
+              {/dede:arclist}
+            </dd>
+          </div>
+          <script>
+            // 添加滚动效果
+            function initScroll() {
+              // 创建动画样式
+              const styleSheet = document.createElement('style');
+              document.head.appendChild(styleSheet);
+
+              // 处理评论区域
+              const commentContainer = document.getElementById('commetcontent');
+              if (commentContainer) {
+                const comments = commentContainer.querySelectorAll('.decmt-box2');
+                if (comments.length && commentContainer.scrollWidth > commentContainer.clientWidth) {
+                  commentContainer.classList.add('comment-scroll-container', 'slide-mask-l', 'slide-mask-r');
+                  const commentWrapper = document.createElement('div');
+                  commentWrapper.className = 'comment-scroll-wrapper';
+                  comments.forEach(comment => commentWrapper.appendChild(comment));
+                  commentContainer.appendChild(commentWrapper);
+
+                  // 计算起始位置（容器宽度加上一定的偏移量）
+                  const startPosition = commentContainer.offsetWidth + 50;
+                  // 计算内容总宽度（包括起始位置）
+                  const totalWidth = commentWrapper.scrollWidth + startPosition;
+                  // 根据设定的速度（像素/秒）计算动画时长
+                  const duration = totalWidth / parseFloat('{dede:global.cfg_comment_speed/}');
+                  // 动态添加滚动动画
+                  styleSheet.sheet.insertRule(`
+          					@keyframes scroll {
+          						from { transform: translateX(${startPosition}px); }
+          						to { transform: translateX(-100%); }
+          					}
+          				`, styleSheet.sheet.cssRules.length);
+                  // 设置评论区域的滚动速度
+                  commentWrapper.style.animationDuration = duration + 's';
+                }
+              }
+
+              // 处理ReadMore区域
+              const readMoreContainer = document.getElementById('ReadMore');
+              if (readMoreContainer) {
+                const readMoreItems = readMoreContainer.querySelectorAll('.decmt-box2');
+                if (readMoreItems.length && readMoreContainer.scrollWidth > readMoreContainer.clientWidth) {
+                  readMoreContainer.classList.add('comment-scroll-container', 'slide-mask-l', 'slide-mask-r');
+                  const readMoreWrapper = document.createElement('div');
+                  readMoreWrapper.className = 'comment-scroll-wrapper';
+                  readMoreItems.forEach(item => readMoreWrapper.appendChild(item));
+                  readMoreContainer.appendChild(readMoreWrapper);
+
+                  // 计算起始位置（容器宽度加上一定的偏移量）
+                  const startPosition = readMoreContainer.offsetWidth + 50;
+                  // 计算内容总宽度（包括起始位置）
+                  const totalWidth = readMoreWrapper.scrollWidth + startPosition;
+                  // 根据设定的速度（像素/秒）计算动画时长
+                  const duration = totalWidth / parseFloat('{dede:global.cfg_readmore_speed/}');
+                  // 动态添加滚动动画
+                  styleSheet.sheet.insertRule(`
+          					@keyframes scroll {
+          						from { transform: translateX(${startPosition}px); }
+          						to { transform: translateX(-100%); }
+          					}
+          				`, styleSheet.sheet.cssRules.length);
+                  // 设置ReadMore区域的滚动速度
+                  readMoreWrapper.style.animationDuration = duration + 's';
+                }
+              }
+            }
+            // 等待内容加载完成后初始化滚动
+            window.addEventListener('load', initScroll);
+          </script>
+          
+          <section class="next-shelf">
+            <li class="project" style="max-width: 70%;">
+              <a class="shelf-project-link" href="{dede:prenext get='preurl'/}">
+                <h6 class="active" style="margin-bottom: 0;">Previous</h6>
+                <div class="next-title">{dede:prenext get='prename'/}</div>
+              </a>
+            </li>
+            <li class="project" style="text-align: right;max-width: 70%;">
+              <a class="shelf-project-link" href="{dede:prenext get='nexturl'/}">
+                <div class="next-title">{dede:prenext get='nextname'/}</div>
+                <h6 class="active" style="margin-bottom: 0;">Next</h6>
+              </a>
+            </li>
+          </section>
+          <div class="fillwidth-2"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="fillwidth-2"></div>
+    {dede:include filename="footer.htm"/}
+  </div>
+
+  {dede:include file='code-highlight.htm' /}
+  <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
+  <script src="{dede:global.cfg_templets_skin/}/js/image-caption.js"></script><!-- 图片标题 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script><!-- 手机导航栏 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/image-carousel.js"></script><!-- 图片轮播 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/like-particles.js"></script><!-- 点赞粒子效果 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/media-preview.js"></script><!-- 图片预览 -->
+  <script src="{dede:global.cfg_templets_skin/}/js/notice.js"></script><!-- 弹窗消息通知 -->
+
+</body>
+
+</html>

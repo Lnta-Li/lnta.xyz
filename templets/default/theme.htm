@@ -1,0 +1,151 @@
+<script>
+// 主题模式UI配置
+const themeUIConfig = {
+    transition: {
+        fadeInOut: '0.3s',
+        hide: '0.5s'
+    },
+    noticeUI: { // 通知栏配置
+        noticeShow: 5, // 提示条显示延时5秒
+        noticeAutoHide: 10, // 提示条自动消失倒计时10秒
+        noticeRemove: 3, // 提示条消失后的延时3秒销毁
+        noticeIcon: '&#xe651;', // 提示图标编码
+        targetId: 'theme-mode-notice', // 跟踪目标元素ID
+        positionMode: 'below-center', // 在目标元素下方右对齐
+        darkModeText: "当前文章作者设置了深色模式，可以通过菜单栏下方按钮切换", // 深色模式提示文本
+        lightModeText: "当前文章作者设置了浅色模式，可以通过菜单栏下方按钮切换" // 浅色模式提示文本
+    }
+};
+
+// 主题相关函数
+(function() {
+    // 获取系统默认主题设置
+    function getSystemThemeMode() {
+        const themeCookie = document.cookie.split('; ').find(row => row.startsWith('theme=')); // 获取cookie中保存的主题模式
+        if (themeCookie) {
+            return themeCookie.split('=')[1];
+        }
+        return '{dede:global.cfg_Default_theme/}'; // 获取后台设置的默认主题
+    }
+    
+    // 系统主题变量
+    const SystemThemeMode = getSystemThemeMode();
+    
+    // 获取当前主题设置
+    function getCurrentTheme() {
+        // 首先检查是否有theme_mode的全局变量值
+        var themeMode = '{dede:theme_mode/}';
+        
+        // 检查具体的值
+        if(themeMode === '1') {
+            // 深色模式
+            return '1';
+        } else if(themeMode === '0') {
+            // 浅色模式
+            return '0';
+        } else {
+            // 值为3或为空时，返回系统主题设置
+            return SystemThemeMode;
+        }
+    }
+
+    // 设置主题
+    function setTheme(themeValue) {
+        const themeFile = themeValue === '0' ? 'theme-light.css' : 'theme-dark.css';
+        document.write(`<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/style/${themeFile}" id="theme-style">`);
+        
+        // 设置radio按钮状态
+        document.write(`
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const themeInputs = document.querySelectorAll('.switch-wrapper input[name="theme"]');
+                    themeInputs.forEach(input => {
+                        input.checked = input.value === '${themeValue}';
+                    });
+                });
+            <\/script>
+        `);
+    }
+
+    // 显示主题模式通知
+    function showThemeModeNotice(mode) {
+        const noticeText = mode === '1' ? themeUIConfig.noticeUI.darkModeText : themeUIConfig.noticeUI.lightModeText;
+        
+        // 使用NoticeManager显示通知
+        NoticeManager.show({
+            text: noticeText,
+            icon: themeUIConfig.noticeUI.noticeIcon,
+            targetId: themeUIConfig.noticeUI.targetId,
+            positionMode: themeUIConfig.noticeUI.positionMode,
+            showDelay: themeUIConfig.noticeUI.noticeShow,
+            autoHideDelay: themeUIConfig.noticeUI.noticeAutoHide,
+            removeDelay: themeUIConfig.noticeUI.noticeRemove
+        }).then(() => {
+            // 通知隐藏后执行的操作
+            const themeNoticeElement = document.getElementById(themeUIConfig.noticeUI.targetId);
+            if (themeNoticeElement) {
+                themeNoticeElement.style.removeProperty('opacity'); // 移除opacity属性，回到CSS默认状态
+            }
+        });
+        
+        // 显示时设置透明度
+        setTimeout(() => {
+            const themeNoticeElement = document.getElementById(themeUIConfig.noticeUI.targetId);
+            if (themeNoticeElement) {
+                themeNoticeElement.style.opacity = '1'; // 显示时透明度
+            }
+        }, themeUIConfig.noticeUI.noticeShow * 1000);
+    }
+
+    // 立即执行主题设置
+    const currentTheme = getCurrentTheme();
+    setTheme(currentTheme);
+    
+    // 判断是否需要显示主题模式提示条
+    document.addEventListener('DOMContentLoaded', function() {
+        var themeMode = '{dede:theme_mode/}';
+        // 如果主题模式与系统主题模式相同，不显示提示条
+        if (themeMode === SystemThemeMode) {
+            // 主题模式与系统默认相同，不显示提示条
+            return;
+        }
+        
+        if(themeMode === '1') {
+            // 显示深色模式提示条
+            showThemeModeNotice('1');
+        } else if(themeMode === '0') {
+            // 显示浅色模式提示条
+            showThemeModeNotice('0');
+        }
+        // 值为3或为空时不显示提示条
+    });
+})();
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeInputs = document.querySelectorAll('.switch-wrapper input[name="theme"]');
+    
+    // 监听主题切换
+    themeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            if (this.checked) {
+                const themeValue = this.value;
+                const themeFile = themeValue === '0' ? 'theme-light.css' : 'theme-dark.css';
+                const themeLink = document.getElementById('theme-style');
+                themeLink.href = '{dede:global.cfg_templets_skin/}/style/' + themeFile;
+                
+                // 保存到cookies，设置30天过期
+                const date = new Date();
+                date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+                document.cookie = `theme=${themeValue}; expires=${date.toUTCString()}; path=/`;
+                
+                // 更新radio按钮状态
+                themeInputs.forEach(input => {
+                    input.checked = input.value === themeValue;
+                });
+            }
+        });
+    });
+});
+</script>

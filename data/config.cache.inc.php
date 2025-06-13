@@ -1,0 +1,201 @@
+<?php
+$cfg_disable_funs = 'phpinfo,eval,assert,exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source,file_put_contents,fsockopen,fopen,fwrite,preg_replace';
+$cfg_disable_tags = 'php';
+$cfg_basehost = 'http://localhost';
+$cfg_cmspath = '';
+$cfg_cookie_encode = '32DMHXiNpWiOkWktL1brbHxWsBHOg';
+$cfg_indexurl = '/';
+$cfg_backup_dir = 'backupdata';
+$cfg_indexname = 'Home';
+$cfg_webname = '设计师Lntano的个人作品集';
+$cfg_adminemail = 'admin@dedecms.com';
+$cfg_html_editor = 'ckeditor';
+$cfg_arcdir = '/a';
+$cfg_medias_dir = '/uploads';
+$cfg_ddimg_width = 240;
+$cfg_ddimg_height = 180;
+$cfg_domain_cookie = '';
+$cfg_imgtype = 'jpg|jpeg|gif|png|webp|mp4';
+$cfg_softtype = 'zip|gz|rar|iso|doc|xsl|ppt|wps';
+$cfg_mediatype = 'swf|mpg|mp3|mp4|rm|rmvb|wmv|wma|wav|mid|mov';
+$cfg_specnote = 6;
+$cfg_list_symbol = ' > ';
+$cfg_notallowstr = '';
+$cfg_replacestr = '';
+$cfg_feedbackcheck = 'N';
+$cfg_keyword_replace = 'Y';
+$cfg_fck_xhtml = 'N';
+$cfg_df_style = 'default';
+$cfg_multi_site = 'N';
+$cfg_dede_log = 'N';
+$cfg_powerby = 'Copyright © 2025-2026 Lntano版权所有';
+$cfg_arcsptitle = 'N';
+$cfg_arcautosp = 'N';
+$cfg_arcautosp_size = 5;
+$cfg_auot_description = 240;
+$cfg_ftp_host = '';
+$cfg_ftp_port = 21;
+$cfg_ftp_user = '';
+$cfg_ftp_pwd = '';
+$cfg_ftp_root = '/';
+$cfg_ftp_mkdir = 'N';
+$cfg_feedback_ck = 'N';
+$cfg_list_son = 'Y';
+$cfg_mb_open = 'N';
+$cfg_mb_album = 'Y';
+$cfg_mb_upload = 'Y';
+$cfg_mb_upload_size = 1024;
+$cfg_mb_sendall = 'Y';
+$cfg_mb_rmdown = 'Y';
+$cfg_cli_time = 8;
+$cfg_mb_addontype = 'swf|mpg|mp3|mp4|rm|rmvb|wmv|wma|wav|mid|mov|zip|rar|doc|xsl|ppt|wps';
+$cfg_mb_max = 500;
+$cfg_keyword_like = 'N';
+$cfg_index_max = 10000;
+$cfg_index_cache = 86400;
+$cfg_tplcache = 'Y';
+$cfg_tplcache_dir = '/data/tplcache';
+$cfg_makesign_cache = 'N';
+$cfg_rm_remote = 'Y';
+$cfg_arc_dellink = 'N';
+$cfg_arc_autopic = 'Y';
+$cfg_arc_autokeyword = 'Y';
+$cfg_title_maxlen = 200;
+$cfg_album_width = 800;
+$cfg_check_title = 'Y';
+$cfg_album_row = 3;
+$cfg_album_col = 4;
+$cfg_album_pagesize = 12;
+$cfg_album_style = 1;
+$cfg_album_ddwidth = 200;
+$cfg_mb_notallow = 'www,bbs,ftp,mail,user,users,admin,administrator';
+$cfg_mb_idmin = 3;
+$cfg_mb_pwdmin = 3;
+$cfg_mb_pwdtype = '32';
+$cfg_md_idurl = 'N';
+$cfg_mb_rank = 10;
+$cfg_feedback_time = 0;
+$cfg_feedback_numip = 0;
+$cfg_md_mailtest = 'N';
+$cfg_mb_spacesta = -10;
+$cfg_vdcode_member = 'N';
+$cfg_mb_cktitle = 'Y';
+$cfg_mb_editday = 7;
+$cfg_caicai_sub = 2;
+$cfg_caicai_add = 2;
+$cfg_feedback_add = 5;
+$cfg_feedback_sub = 5;
+$cfg_search_max = 50000;
+$cfg_search_maxrc = 300;
+$cfg_search_time = 3;
+$cfg_baidunews_limit = '100';
+$cfg_updateperi = '15';
+$cfg_sendmail_bysmtp = 'Y';
+$cfg_smtp_server = 'smtp.qq.com';
+$cfg_smtp_port = '25';
+$cfg_smtp_usermail = 'desdev@vip.qq.com';
+$cfg_smtp_user = 'desdev';
+$cfg_smtp_password = 'desdev';
+$cfg_online_type = 'nps';
+$cfg_upload_switch = 'Y';
+$cfg_allsearch_limit = '1';
+$cfg_rewrite = 'Y';
+$cfg_delete = 'Y';
+$cfg_keywords = '设计,平面设计,作品集,设计灵感,设计教程';
+$cfg_description = 'Lntano是一位来自江苏的平面设计师';
+$cfg_beian = '';
+$cfg_need_typeid2 = 'Y';
+$cfg_cache_type = 'id';
+$cfg_max_face = 50;
+$cfg_typedir_df = 'Y';
+$cfg_makeindex = 'N';
+$cfg_make_andcat = 'N';
+$cfg_make_prenext = 'Y';
+$cfg_feedback_forbid = 'N';
+$cfg_jump_once = 'Y';
+$cfg_task_pwd = '';
+$cfg_addon_domainbind = 'N';
+$cfg_addon_domain = '';
+$cfg_df_dutyadmin = 'admin';
+$cfg_mb_allowncarc = 'Y';
+$cfg_mb_allowreg = 'Y';
+$cfg_mb_adminlock = 'N';
+$cfg_sendarc_scores = 10;
+$cfg_sendfb_scores = 3;
+$cfg_mb_spaceallarc = 0;
+$cfg_face_adds = 10;
+$cfg_moreinfo_adds = 20;
+$cfg_money_scores = 50;
+$cfg_mb_wnameone = 'N';
+$cfg_arc_dirname = 'Y';
+$cfg_puccache_time = 36000;
+$cfg_arc_click = -1;
+$cfg_addon_savetype = 'ymd';
+$cfg_qk_uploadlit = 'N';
+$cfg_login_adds = 2;
+$cfg_userad_adds = 10;
+$cfg_ddimg_full = 'N';
+$cfg_ddimg_bgcolor = 0;
+$cfg_replace_num = 2;
+$cfg_replace_total = 0;
+$cfg_replace_sort = 1;
+$cfg_uplitpic_cut = 'N';
+$cfg_album_mark = 'N';
+$cfg_mb_feedcheck = 'N';
+$cfg_mb_msgischeck = 'N';
+$cfg_mb_reginfo = 'Y';
+$cfg_remote_site = 'N';
+$cfg_title_site = 'N';
+$cfg_mysql_type = 'mysqli';
+$cfg_memcache_enable = 'N';
+$cfg_memcache_mc_defa = 'memcache://127.0.0.1:11211/default127';
+$cfg_memcache_mc_oth = '';
+$cfg_cross_sectypeid = 'N';
+$cfg_digg_update = 0;
+$cfg_feedback_guest = 'Y';
+$cfg_timeout_exit = 0;
+$cfg_archives_log = 'N';
+$cfg_fail_limit = 5;
+$cfg_lock_time = 3600;
+$cfg_web_logo = '/uploads/250317/1-25031G5451JY.jpg';
+$cfg_Introduce = '<strong>Lntano Yo</strong> is a dream & life designer';
+$cfg_auto_translate = 'Y';
+$translate_api_id = '20250322002311983';
+$translate_api_key = '_TD5i_jJ6xpuW17iNbZO';
+$cfg_cursor = '/uploads/250317/1-250323225050495.png';
+$cfg_comment_speed = 150;
+$cfg_readmore_speed = 180;
+$cfg_head_image = '/uploads/250413/1-2504131240391A.jpg';
+$cfg_readmore_quantit = 15;
+$cfg_Default_theme = 0;
+$cfg_font_icon = '/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: \'iconfontb\';  /* Project id 4883100 */
+  src: url(\'//at.alicdn.com/t/c/font_4883100_kv1pffchme.woff2?t=1748509463406\') format(\'woff2\'),
+       url(\'//at.alicdn.com/t/c/font_4883100_kv1pffchme.woff?t=1748509463406\') format(\'woff\'),
+       url(\'//at.alicdn.com/t/c/font_4883100_kv1pffchme.ttf?t=1748509463406\') format(\'truetype\'),
+       url(\'//at.alicdn.com/t/c/font_4883100_kv1pffchme.svg?t=1748509463406#iconfontb\') format(\'svg\');
+}
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: \'iconfont\';  /* Project id 4858194 */
+  src: 
+       url(\'//at.alicdn.com/t/c/font_4858194_l9yt9trwwk.woff2?t=1749181393484\') format(\'woff2\'),
+       url(\'//at.alicdn.com/t/c/font_4858194_l9yt9trwwk.woff?t=1749181393484\') format(\'woff\'),
+       url(\'//at.alicdn.com/t/c/font_4858194_l9yt9trwwk.ttf?t=1749181393484\') format(\'truetype\');
+}
+.iconfont {
+    font-family:\'iconfont\' !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.iconfontb {
+    font-family:\'iconfontb\' !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}';
+?>
