@@ -494,7 +494,7 @@
     }
 
     .file-name {
-        max-width: 30vw;
+        max-width: none;
     }
 
 }
