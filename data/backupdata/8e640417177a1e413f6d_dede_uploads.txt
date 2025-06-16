@@ -415,3 +415,15 @@ INSERT INTO `dede_uploads` VALUES('556','76','AI任意形状渐变、网格渐�
 INSERT INTO `dede_uploads` VALUES('557','76','AI任意形状渐变、网格渐变、混合颜色工具...?','/uploads/allimg/250611/1-2506111S4352b.png','1','1302','820','0','442071','1749638075','1');
 INSERT INTO `dede_uploads` VALUES('558','76','AI任意形状渐变、网格渐变、混合颜色工具...?','/uploads/allimg/250611/1-2506111S540Y8.png','1','1462','811','0','169199','1749638140','1');
 INSERT INTO `dede_uploads` VALUES('559','76','小尺寸缩略图(subpic_76)','/uploads/subpic/subpic_76.jpg','1','80','80','0','2355','1749638162','1');
+INSERT INTO `dede_uploads` VALUES('560','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613143T4N9.png','1','1297','438','0','102015','1749796724','1');
+INSERT INTO `dede_uploads` VALUES('561','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613143Z5235.png','1','1255','310','0','39451','1749796745','1');
+INSERT INTO `dede_uploads` VALUES('562','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-2506131439211M.png','1','1193','388','0','61655','1749796761','1');
+INSERT INTO `dede_uploads` VALUES('563','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613143945R6.png','1','1275','327','0','46547','1749796785','1');
+INSERT INTO `dede_uploads` VALUES('564','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-2506131440012W.png','1','1169','290','0','36993','1749796801','1');
+INSERT INTO `dede_uploads` VALUES('565','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-25061319151O62.jpg','1','1440','1920','0','293574','1749813317','1');
+INSERT INTO `dede_uploads` VALUES('566','77','小尺寸缩略图(subpic_77)','/uploads/subpic/subpic_77.jpg','1','80','80','0','2561','1749813324','1');
+INSERT INTO `dede_uploads` VALUES('567','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613191RM08.png','1','2857','1602','0','1219489','1749813507','1');
+INSERT INTO `dede_uploads` VALUES('568','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613191U4914.png','1','488','624','0','29625','1749813534','1');
+INSERT INTO `dede_uploads` VALUES('569','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613192311c4.png','1','1612','914','0','165424','1749813791','1');
+INSERT INTO `dede_uploads` VALUES('570','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250616/1-25061612115L27.png','1','466','354','0','38756','1750047117','1');
+INSERT INTO `dede_uploads` VALUES('571','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250616/1-2506161212413E.png','1','572','413','0','114471','1750047161','1');
