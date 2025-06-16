@@ -485,11 +485,11 @@
         margin: 0 auto;
         left: 0;
         right: 0;
-        max-width: 80%;
-        border-radius: 50px;
+        max-width: 85%;
+        border-radius: 15px;
         display: flex;
         justify-content: center;
-        bottom: 20px;
+        bottom: 15px;
         position: fixed;
     }
 

@@ -822,6 +822,8 @@ p {
     background: var(--background-carousel);
     color: var(--faint-color-3);
     opacity: 1;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    -webkit-transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .ICP-text a {
@@ -1288,7 +1290,7 @@ input[value="1"]:checked ~ .slider {
 }
 
 .notice-text {
-    color: var(--solid-color);
+    color: var(--notice-color);
     font-size: var(--fontsize-a);
     display: flex;
     align-items: center;
@@ -1298,8 +1300,9 @@ input[value="1"]:checked ~ .slider {
 /* 通用通知气泡样式 */
 .notice-bubble {
     position: fixed;
-    z-index: 999;
-    background-color: var(--color-noticebubble);
+    z-index: 9999;
+    cursor: no-drop;
+    background-color: var(--notice-bg-color);
     backdrop-filter: blur(0);
     -webkit-backdrop-filter: blur(0);
     border-radius: 8px;
@@ -1309,6 +1312,8 @@ input[value="1"]:checked ~ .slider {
     align-items: center;
     scale: 0;
     opacity: 0;
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
     transition: opacity var(--animation-time) ease,scale var(--animation-time) ease;
     -webkit-transition:  opacity var(--animation-time) ease,scale var(--animation-time) ease;
 }
@@ -1316,8 +1321,6 @@ input[value="1"]:checked ~ .slider {
 .notice-bubble.active {
     scale: 1;
     opacity: 1;
-    backdrop-filter: blur(var(--blur-carouseltitle));
-    -webkit-backdrop-filter: blur(var(--blur-carouseltitle));
 }
 
 .notice-bubble .iconfontb {

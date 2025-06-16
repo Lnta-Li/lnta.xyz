@@ -75,7 +75,7 @@ const NoticeManager = (function() {
         
         // 如果是移动设备，忽略positionMode和position参数，直接设置在屏幕下方居中
         if (isMobile) {
-            noticeElement.style.bottom = '20px';
+            noticeElement.style.bottom = '15px';
             return;
         }
         
@@ -199,6 +199,11 @@ const NoticeManager = (function() {
         
         // 组装通知
         noticeElement.appendChild(noticeTextDiv);
+        
+        // 添加点击事件，点击时移除active类
+        noticeElement.addEventListener('click', function() {
+            noticeElement.classList.remove('active');
+        });
         
         // 添加到页面
         document.body.appendChild(noticeElement);

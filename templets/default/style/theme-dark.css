@@ -38,4 +38,6 @@
     --color-noticebubble: rgb(52 52 52 / 80%); /* 通知气泡背景色 */
     --readmore-button: linear-gradient(90deg, var(--solid-color) 0, #ff00549c 10%, #6f00ffad 15%, #0075ffb3 20%, var(--solid-color) 30%); /* 阅读更多按钮背景色 */
     --text-bacolor: rgb(255 255 255 / 47%); /* 彩色背景文本背景色 */
+    --notice-bg-color: rgb(255 255 255 / 50%);
+    --notice-color: rgb(0 0 0 / 90%);
 }   
