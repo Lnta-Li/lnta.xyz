@@ -1295,6 +1295,8 @@ input[value="1"]:checked ~ .slider {
     display: flex;
     align-items: center;
     gap: 8px;
+    transition: color var(--animation-time) ease, background var(--animation-time) ease;
+    -webkit-transition: color var(--animation-time) ease, background var(--animation-time) ease;
 }
 
 /* 通用通知气泡样式 */
