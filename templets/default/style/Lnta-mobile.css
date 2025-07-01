@@ -121,6 +121,10 @@
         padding-right: 0;
     }
 
+    .diy-2 {
+        margin-bottom: 0;
+    }
+
     .mobile-half {
         width: 50% !important;
         float: left !important;
@@ -365,7 +369,8 @@
     }
 
     .small-box {
-        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         width: 100% !important;
         height: 100% !important;
     }
@@ -495,6 +500,10 @@
 
     .file-name {
         max-width: none;
+    }
+
+    .DD {
+        font-size: 0.9em;
     }
 
 }

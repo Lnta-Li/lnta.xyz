@@ -427,3 +427,13 @@ INSERT INTO `dede_uploads` VALUES('568','77','CINEMA 4D 2023 + OC2022安装包',
 INSERT INTO `dede_uploads` VALUES('569','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250613/1-250613192311c4.png','1','1612','914','0','165424','1749813791','1');
 INSERT INTO `dede_uploads` VALUES('570','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250616/1-25061612115L27.png','1','466','354','0','38756','1750047117','1');
 INSERT INTO `dede_uploads` VALUES('571','77','CINEMA 4D 2023 + OC2022安装包','/uploads/allimg/250616/1-2506161212413E.png','1','572','413','0','114471','1750047161','1');
+INSERT INTO `dede_uploads` VALUES('572','78','生物医药企业欢乐家庭日活动主视觉设计','/uploads/allimg/250617/1-25061G64622Q4.jpg','1','3200','1933','0','637189','1750149982','1');
+INSERT INTO `dede_uploads` VALUES('573','78','生物医药企业欢乐家庭日活动主视觉设计','/uploads/allimg/250617/1-25061GIA4442.png','1','743','403','0','33434','1750153014','1');
+INSERT INTO `dede_uploads` VALUES('574','78','生物医药企业欢乐家庭日活动主视觉设计','/uploads/allimg/250617/1-25061GIH2464.jpg','1','1085','2158','0','281178','1750153042','1');
+INSERT INTO `dede_uploads` VALUES('575','78','小尺寸缩略图(subpic_78)','/uploads/subpic/subpic_78.jpg','1','80','80','0','2535','1750153095','1');
+INSERT INTO `dede_uploads` VALUES('576','78','生物医药企业欢乐家庭日活动主视觉设计','/uploads/allimg/250617/1-25061GIU0493.jpg','1','2268','850','0','151323','1750153130','1');
+INSERT INTO `dede_uploads` VALUES('577','74','那一夏，来花间旅行视觉设计?','/uploads/allimg/250619/1-2506191FHQO.jpg','1','1013','731','0','170490','1750324048','1');
+INSERT INTO `dede_uploads` VALUES('578','79','使用悟空图像设计风格化海报','/uploads/allimg/250624/1-2506241AJ70-L.jpg','1','0','0','0','644459','1750755467','1');
+INSERT INTO `dede_uploads` VALUES('579','79','小尺寸缩略图(subpic_79)','/uploads/subpic/subpic_79.jpg','1','80','80','0','2531','1750755556','1');
+INSERT INTO `dede_uploads` VALUES('580','79','使用悟空图像设计风格化海报','/uploads/allimg/250624/1-1AIE262.jpg','1','1920','2560','0','644459','1750755556','1');
+INSERT INTO `dede_uploads` VALUES('581','79','使用悟空图像设计风格化海报','/uploads/allimg/250624/1-1AIC930.jpg','1','1920','2560','0','429756','1750755556','1');

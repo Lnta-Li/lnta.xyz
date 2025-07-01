@@ -809,17 +809,29 @@ p {
     font-family: var(--defult-font-family);
 }
 
+.CC {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.DD {
+    opacity: 0.5;
+}
+
 .ICP-text {
     font-size: 12px;
     bottom: 0;
-    padding: 10px 0;
+    padding: 10px;
     position: absolute;
     text-align: center;
+    flex-direction: column;
+    gap: 5px;
     width: -webkit-fill-available;
     flex-wrap: nowrap;
     display: flex;
     justify-content: center;
-    background: var(--background-carousel);
+    /*background: var(--background-carousel);*/
     color: var(--faint-color-3);
     opacity: 1;
     transition: background-color var(--transition-time) ease, color var(--transition-time) ease;

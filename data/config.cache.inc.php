@@ -28,7 +28,7 @@ $cfg_fck_xhtml = 'N';
 $cfg_df_style = 'default';
 $cfg_multi_site = 'N';
 $cfg_dede_log = 'N';
-$cfg_powerby = 'Copyright © 2025-2026 Lntano版权所有';
+$cfg_powerby = 'Copyright © 2025 Lntano版权所有';
 $cfg_arcsptitle = 'N';
 $cfg_arcautosp = 'N';
 $cfg_arcautosp_size = 5;
@@ -198,4 +198,5 @@ $cfg_font_icon = '/* 在线链接服务仅供平台体验和调试使用，平�
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }';
+$cfg_Declaration = '本站内所有作品（包括但不限于设计、图片、文字等内容）版权均归本人所有，未经授权不允许任何形式的使用、转载、改编，侵权必究！';
 ?>
