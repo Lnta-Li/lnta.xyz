@@ -198,5 +198,5 @@ $cfg_font_icon = '/* 在线链接服务仅供平台体验和调试使用，平�
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }';
-$cfg_Declaration = '本站内所有作品（包括但不限于设计、图片、文字等内容）版权均归本人所有，未经授权不允许任何形式的使用、转载、改编，侵权必究！';
+$cfg_Declaration = '本站内所有作品（包括但不限于设计、图片、文字等内容）版权均归本人所有，未经授权不允许任何形式的盗用、转载、改编，侵权必究！';
 ?>

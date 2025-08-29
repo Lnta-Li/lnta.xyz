@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API测试工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .url-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        #imageUrl {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            word-break: break-all;
+        }
+        #copyBtn {
+            padding: 8px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        #preview {
+            margin-top: 20px;
+            max-width: 100%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>图片上传API测试工具</h1>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="image">选择图片:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit">上传测试</button>
+        </form>
+        <div id="result"></div>
+        <img id="preview" alt="预览图片">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const image = document.getElementById('image').files[0];
+            const resultDiv = document.getElementById('result');
+            const imageUrlInput = document.createElement('input');
+            const copyBtn = document.createElement('button');
+            const previewImg = document.getElementById('preview');
+
+            // 清空之前的结果
+            resultDiv.innerHTML = '';
+            previewImg.style.display = 'none';
+
+            if (!image) {
+                resultDiv.innerHTML = '<p class="error">请选择一张图片</p>';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', image);
+
+            fetch('http://www.lnta.xyz/RelayStation/upload_api.php', {
+                method: 'POST',
+                headers: {},
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`服务器响应错误: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    resultDiv.innerHTML = `<p class="success">上传成功!</p><div class="url-container"><input type="text" id="imageUrl" value="${data.image_url}" readonly><button id="copyBtn">复制</button></div>`;
+                    previewImg.src = data.image_url;
+                    previewImg.style.display = 'block';
+
+                    // 复制按钮功能
+                    document.getElementById('copyBtn').addEventListener('click', function() {
+                        const urlInput = document.getElementById('imageUrl');
+                        urlInput.select();
+                        document.execCommand('copy');
+                        alert('URL已复制到剪贴板!');
+                    });
+                } else {
+                    resultDiv.innerHTML = `<p class="error">上传失败: ${data.error}</p>`;
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `<p class="error">发生错误: ${error.message}</p>`;
+                console.error('错误详情:', error);
+            });
+        });
+    </script>
+</body>
+</html>
