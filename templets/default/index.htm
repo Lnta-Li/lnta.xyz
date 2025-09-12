@@ -1,150 +1,428 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{dede:global.cfg_webname/}</title>
   <meta name="description" content="{dede:global.cfg_description/}" />
   <meta name="keywords" content="{dede:global.cfg_keywords/}" />
-  {dede:include filename="theme.htm"/}
-  <link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
-  <link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
-  <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
+
+  <!-- iconfont 引入 -->
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1832207_c8i9n1ulxr.css">
+
+  <!-- 通用样式 -->
+  <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/new-home/style-common.css">
 </head>
 
-<body huaban_pin_injected="true" class="home-active tra-bg-color">
-  {dede:include filename="head.htm"/}
-  <div id="pagebody">
-  <div class="page-wrapper">
-      <header class="header">
-        <section class="header-text-wrapper nested mob-over mobile-full">
-          <h1 class="header-text col-4">
-            <span class="highlighter">{dede:global.cfg_Introduce/}</span>
-          </h1>
-        </section>
-        <section class="header-image-wrapper">
-          <section class="header-image">
-            {dede:type typeid='1'}
-            <a href="[field:typeurl/]">
-              {/dede:type}
-              <img class="header-image main-image" alt="about me" src="{dede:global.cfg_head_image/}"/>
-            </a>
-            <img class="sparkle" alt="" src="{dede:global.cfg_templets_skin/}/images/sparkle.gif" />
-          </section>
-        </section>
-      </header>
-  </div>
-  <section class="projects-wrapper tra-bg-color" data-role="list">
-    <div class="projects-container">
-      <ul class="projects col-10 offset-2 nested mobile-reset">
-        {dede:arclist typeid='2' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested mobile-full" id="project-1">
-          <div class="project-number col-1 mobile-full project-m-01">
-            <h3>01</h3>
-          </div>
-          <div class="col-3 mobile-full">
-            <a class="project-link" href="[field:arcurl/]">
-              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </a>
-          </div>
-        </li>
-        {/dede:arclist}
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav" id="topNav">
+    <img src="{dede:global.cfg_templets_skin/}/new-home/logo.png" alt="LNTANO" class="logo">
 
-        {dede:arclist typeid='3' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested mobile-full" id="project-2">
-          <div class="project-number col-4 mobile-full">
-            <h3>02</h3>
-          </div>
-          <div class="col-4 mobile-full">
-            <a class="project-link" href="[field:arcurl/]">
-              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </a>
-          </div>
-        </li>
-        {/dede:arclist}
+    <div class="nav-tabs">
+      <a href="{dede:global.cfg_indexurl/}" class="nav-home active">HOME</a>
+      {dede:channel type='top' row='10'}
+      <a href="[field:typeurl/]">[field:typename/]</a>
+      {/dede:channel}
+    </div>
 
-        {dede:arclist typeid='4' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested offset-1 mobile-full mobile-no-offset" id="project-3">
-          <div class="project-number col-4 mobile-full">
-            <h3>03</h3>
-          </div>
-          <div class="col-4 mobile-full">
-            <a class="project-link" href="[field:arcurl/]">
-              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </a>
-          </div>
-        </li>
-        {/dede:arclist}
+    <div class="user-avatar">
+      <img src="{dede:global.cfg_templets_skin/}/new-home/img.png" alt="用户头像" class="avatar-img">
+    </div>
+  </nav>
 
-        {dede:arclist typeid='5' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested mobile-full" id="project-4">
-          <a class="project-link flipped mobile-unflip" href="[field:arcurl/]" style="display: flex;">
-            <div class="project-number col-2 mobile-full">
-              <h3>04</h3>
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </div>
-            <div class="col-2 mobile-full">
-              <img class="project-thumb smaller" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-            </div>
-          </a>
-        </li>
-        {/dede:arclist}
+  <!-- 主要内容区域 -->
+  <main class="main-content">
+    <div class="hero-text" id="heroText">
+      <h1 class="hero-title" id="heroTitle">LNTANO</h1>
+      <p class="hero-subtitle" id="heroSubtitle">DREAM & LIFE DESIGNER</p>
+    </div>
 
-        {dede:arclist typeid='6' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested mobile-full" id="project-5">
-          <div class="project-number col-1 mobile-full">
-            <h3>05</h3>
-          </div>
-          <div class="col-3 mobile-full">
-            <a class="project-link" href="[field:arcurl/]">
-              <img class="project-thumb small" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </a>
-          </div>
-        </li>
-        {/dede:arclist}
+    <img src="{dede:global.cfg_templets_skin/}/new-home/man.png" alt="Designer" class="hero-image" id="heroImage">
 
-        {dede:arclist typeid='7' titlelen='60' row='1' flag='f'}
-        <li class="project col-4 nested mobile-full" id="project-6">
-          <div class="project-number col-4 mobile-full">
-            <h3>06</h3>
-          </div>
-          <div class="col-4 mobile-full">
-            <a class="project-link" href="[field:arcurl/]">
-              <img class="project-thumb" alt="[field:title/]" src="[field:litpic/]" draggable="false" />
-              <h6 class="active">[field:typename/]</h6>
-              <h2>[field:title/]</h2>
-              <p>[field:description function="cutStr(@me,120)/]</p>
-            </a>
-          </div>
-        </li>
-        {/dede:arclist}
-      </ul>
-      <div class="fillwidth-2"></div>
-      <div class="header-text-link">
-        <a class="btn-shine" href="/tags/All.html"><i class="iconfontb">&#xe602;</i> Read More</a>
+    <div class="copyright-text">
+      本站内所有作品（包括但不限于元素、图片、文字、代码等内容）版权均归本人所有，未经授权不允许任何形式的盗用、转载、改编，侵权必究！
+    </div>
+  </main>
+
+  <!-- 底部滚动条 -->
+  <div class="bottom-bar" id="bottomBar">
+    <div class="scrolling-content">
+      <div class="copyright-group">
+        <img src="{dede:global.cfg_templets_skin/}/new-home/star.png" alt="Star" class="star-icon">
+        <span>Copyright © 2025</span>
+        <span class="brand-name">Lntano</span>
+        <span>版权所有</span>
+      </div>
+      <div class="copyright-group">
+        <img src="{dede:global.cfg_templets_skin/}/new-home/star.png" alt="Star" class="star-icon">
+        <span>Copyright © 2025</span>
+        <span class="brand-name">Lntano</span>
+        <span>版权所有</span>
+      </div>
+      <div class="copyright-group">
+        <img src="{dede:global.cfg_templets_skin/}/new-home/star.png" alt="Star" class="star-icon">
+        <span>Copyright © 2025</span>
+        <span class="brand-name">Lntano</span>
+        <span>版权所有</span>
       </div>
     </div>
-    {dede:include filename="footer.htm"/}
-  </section>
   </div>
 
-  <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script>
+  <!-- 下方内容区域 -->
+  <div class="placeholder-item">
+    <div class="placeholder-image"></div>
+    <div class="placeholder-text">
+      <h3>设计作品展示</h3>
+      <p>这里展示各种创意设计作品，包括平面设计、UI/UX设计、品牌设计等多个领域的精彩作品。</p>
+    </div>
+  </div>
+  <div class="placeholder-item">
+    <div class="placeholder-image"></div>
+    <div class="placeholder-text">
+      <h3>项目案例</h3>
+      <p>详细介绍各个项目的设计理念、创作过程和最终效果，展现专业的设计能力和创新思维。</p>
+    </div>
+  </div>
+  <div class="placeholder-item">
+    <div class="placeholder-image"></div>
+    <div class="placeholder-text">
+      <h3>服务内容</h3>
+      <p>提供全方位的设计服务，从概念构思到最终实现，为客户打造独特的视觉体验和品牌形象。</p>
+    </div>
+  </div>
+  <div class="placeholder-item">
+    <div class="placeholder-image"></div>
+    <div class="placeholder-text">
+      <h3>联系方式</h3>
+      <p>欢迎与我们联系，讨论您的设计需求。我们将为您提供专业的咨询和定制化的设计解决方案。</p>
+    </div>
+  </div>
+
+  <!-- 鼠标跟随圆形 -->
+  <div class="mouse-follower" id="mouseFollower"></div>
+
+
+
+  <script>
+    // ========== 鼠标跟随圆形交互效果 ==========
+    const MOUSE_FOLLOWER_CONFIG = {
+      // 圆形基础设置
+      size: 40,              // 圆形直径（像素）
+      smoothness: 0.08,      // 跟随平滑度（0-1，越小越平滑）
+
+
+
+      // 视觉效果设置
+      effects: {
+        blendMode: 'difference' // 混合模式：difference, multiply, screen 等
+      }
+    };
+
+    // 鼠标跟随圆形实现
+    class MouseFollower {
+      constructor() {
+        this.follower = document.getElementById('mouseFollower');
+        this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        this.followerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        this.isHovering = false;
+        this.isOnImage = false;
+
+        this.init();
+      }
+
+      init() {
+        // 绑定事件
+        this.bindEvents();
+
+        // 开始动画循环
+        this.animate();
+
+        // 延迟显示，避免初始闪烁
+        setTimeout(() => {
+          this.follower.style.opacity = '1';
+        }, 100);
+      }
+
+      bindEvents() {
+        // 鼠标移动事件 - 使用节流优化性能
+        let mouseMoveTimer = null;
+        document.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.clientX;
+          this.mouse.y = e.clientY;
+
+          // 清除之前的定时器
+          if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+
+          // 如果鼠标停止移动超过100ms，稍微减慢跟随速度
+          mouseMoveTimer = setTimeout(() => {
+            this.isMouseMoving = false;
+          }, 100);
+
+          this.isMouseMoving = true;
+        });
+
+        // 鼠标进入页面
+        document.addEventListener('mouseenter', () => {
+          this.follower.style.opacity = '1';
+        });
+
+        // 鼠标离开页面
+        document.addEventListener('mouseleave', () => {
+          this.follower.style.opacity = '0';
+        });
+
+        // 页面滚动时更新位置
+        window.addEventListener('scroll', () => {
+          this.updateScrollOffset();
+        });
+
+
+
+        // 为图片添加悬停效果
+        this.setupImageHoverEffects();
+      }
+
+      updateScrollOffset() {
+        // 滚动时保持圆形位置的准确性
+        const scrollY = window.scrollY;
+        this.scrollOffset = scrollY;
+      }
+
+      setupImageHoverEffects() {
+        // 为图片添加特殊的反相效果（仅改变圆球状态，不影响图片）
+        const images = document.querySelectorAll('img, .hero-image, .placeholder-image');
+        images.forEach(img => {
+          img.addEventListener('mouseenter', () => {
+            this.isOnImage = true;
+            this.follower.classList.add('on-image');
+          });
+
+          img.addEventListener('mouseleave', () => {
+            this.isOnImage = false;
+            this.follower.classList.remove('on-image');
+          });
+        });
+      }
+
+
+
+      animate() {
+        const config = MOUSE_FOLLOWER_CONFIG;
+
+        // 计算目标位置
+        const targetX = this.mouse.x;
+        const targetY = this.mouse.y;
+
+        // 动态调整平滑度 - 鼠标移动时更快响应
+        const dynamicSmoothness = this.isMouseMoving ? config.smoothness * 1.5 : config.smoothness;
+
+        // 平滑跟随
+        this.followerPos.x += (targetX - this.followerPos.x) * dynamicSmoothness;
+        this.followerPos.y += (targetY - this.followerPos.y) * dynamicSmoothness;
+
+        // 更新位置
+        this.follower.style.left = this.followerPos.x + 'px';
+        this.follower.style.top = this.followerPos.y + 'px';
+
+        // 继续动画
+        requestAnimationFrame(() => this.animate());
+      }
+
+
+    }
+
+    // 初始化鼠标跟随效果
+    document.addEventListener('DOMContentLoaded', () => {
+      new MouseFollower();
+    });
+
+    // ========== 视差滚动配置参数 ==========
+    const PARALLAX_CONFIG = {
+      // 滚动阈值设置 - 控制各种效果触发的滚动距离
+      thresholds: {
+        navScrolled: 50,        // 导航栏样式变化的滚动距离（像素）
+        bottomBarHidden: 100,   // 底部栏开始隐藏的滚动距离（像素）
+        copyrightFadeStart: 50, // 版权信息开始淡出的滚动位置（像素）
+        copyrightFadeEnd: 300   // 版权信息完全淡出的滚动位置（像素）
+      },
+      // 视差滚动速度 - 控制元素相对于滚动的移动速度（0-1之间，越小越慢）
+      parallaxSpeeds: {
+        heroTitle: 0.4,    // 主标题视差速度（0.4倍滚动速度）
+        heroSubtitle: 0.4, // 副标题视差速度（0.4倍滚动速度）
+        heroImage: 0.2     // 背景图片视差速度（0.2倍滚动速度，营造景深效果）
+      },
+      // 版权信息特效设置
+      copyrightEffects: {
+        maxBlur: 8,      // 最大模糊程度（像素值）
+        fadeSpeed: 1,    // 淡出速度倍数（1为正常速度）
+        maxScale: 1.5    // 最大字体放大倍数（1为原始大小，1.2为放大20%）
+      },
+      // 平滑动画设置 - 控制滚动动画的流畅度
+      smoothing: {
+        lerp: 0.1,      // 线性插值系数（0.05-0.2推荐，越小越平滑但响应越慢）
+        threshold: 0.1  // 动画停止阈值（当目标值与当前值差异小于此值时停止动画）
+      }
+    };
+
+    // ========== 平滑滚动变量 ==========
+    let currentScrollY = 0;
+    let targetScrollY = 0;
+    let isAnimating = false;
+
+
+
+    // ========== 滚动效果 ==========
+    const topNav = document.getElementById('topNav');
+    const bottomBar = document.getElementById('bottomBar');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+    const heroImage = document.getElementById('heroImage');
+    const copyrightText = document.querySelector('.copyright-text');
+
+    // 线性插值函数
+    function lerp(start, end, factor) {
+      return start + (end - start) * factor;
+    }
+
+    // 更新视差效果的函数
+    function updateParallax() {
+      // 平滑过渡到目标滚动位置
+      currentScrollY = lerp(currentScrollY, targetScrollY, PARALLAX_CONFIG.smoothing.lerp);
+
+      // 如果差值很小，直接设置为目标值
+      if (Math.abs(targetScrollY - currentScrollY) < PARALLAX_CONFIG.smoothing.threshold) {
+        currentScrollY = targetScrollY;
+      }
+
+      // 顶部导航栏效果
+      if (currentScrollY > PARALLAX_CONFIG.thresholds.navScrolled) {
+        topNav.classList.add('scrolled');
+      } else {
+        topNav.classList.remove('scrolled');
+      }
+
+      // 视差效果
+      const titleOffset = currentScrollY * PARALLAX_CONFIG.parallaxSpeeds.heroTitle;
+      const subtitleOffset = currentScrollY * PARALLAX_CONFIG.parallaxSpeeds.heroSubtitle;
+      const imageOffset = currentScrollY * PARALLAX_CONFIG.parallaxSpeeds.heroImage;
+
+      heroTitle.style.transform = `translateY(${titleOffset}px)`;
+      heroSubtitle.style.transform = `translateY(${subtitleOffset}px)`;
+      heroImage.style.transform = `translateY(-50%) translateY(${imageOffset}px)`;
+
+      // 版权文字透明、虚化和放大效果
+      if (copyrightText) {
+        const fadeStart = PARALLAX_CONFIG.thresholds.copyrightFadeStart;
+        const fadeEnd = PARALLAX_CONFIG.thresholds.copyrightFadeEnd;
+        const maxBlur = PARALLAX_CONFIG.copyrightEffects.maxBlur;
+        const maxScale = PARALLAX_CONFIG.copyrightEffects.maxScale;
+
+        // 设置缩放中心点为元素中心，避免位置偏移
+        copyrightText.style.transformOrigin = 'center center';
+
+        if (currentScrollY <= fadeStart) {
+          copyrightText.style.opacity = '1';
+          copyrightText.style.filter = 'blur(0px)';
+          copyrightText.style.transform = 'translateX(-50%) scale(1)';
+        } else if (currentScrollY >= fadeEnd) {
+          copyrightText.style.opacity = '0';
+          copyrightText.style.filter = `blur(${maxBlur}px)`;
+          copyrightText.style.transform = `translateX(-50%) scale(${maxScale})`;
+        } else {
+          const progress = (currentScrollY - fadeStart) / (fadeEnd - fadeStart);
+          const opacity = 1 - progress;
+          const blur = progress * maxBlur;
+          const scale = 1 + (maxScale - 1) * progress;
+
+          copyrightText.style.opacity = opacity.toString();
+          copyrightText.style.filter = `blur(${blur}px)`;
+          copyrightText.style.transform = `translateX(-50%) scale(${scale})`;
+        }
+      }
+
+      // 底部滚动条隐藏效果
+      if (currentScrollY > PARALLAX_CONFIG.thresholds.bottomBarHidden) {
+        bottomBar.classList.add('hidden');
+      } else {
+        bottomBar.classList.remove('hidden');
+      }
+
+      // 如果还在动画中，继续下一帧
+      if (Math.abs(targetScrollY - currentScrollY) > PARALLAX_CONFIG.smoothing.threshold) {
+        requestAnimationFrame(updateParallax);
+      } else {
+        isAnimating = false;
+      }
+    }
+
+    // 滚动事件监听器
+    window.addEventListener('scroll', () => {
+      targetScrollY = window.scrollY;
+
+      // 如果没有在动画中，开始新的动画循环
+      if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(updateParallax);
+      }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // ========== 导航标签激活状态管理 ==========
+    const navLinks = document.querySelectorAll('.nav-tabs a');
+    const currentPath = window.location.pathname;
+    const homeUrl = '{dede:global.cfg_indexurl/}';
+
+    // 检查当前页面是否为首页
+    function isHomePage() {
+      return currentPath === '/' || currentPath === '/index.php' || currentPath === homeUrl || window.location.href === homeUrl;
+    }
+
+    // 设置导航激活状态
+    function setActiveNav() {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+
+        // 如果是首页，激活HOME标签
+        if (isHomePage() && link.classList.contains('nav-home')) {
+          link.classList.add('active');
+        }
+        // 如果不是首页，检查URL匹配
+        else if (!isHomePage() && link.href === window.location.href) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // 页面加载时设置激活状态
+    setActiveNav();
+
+    // 监听导航链接点击
+    navLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        // 移除所有激活状态
+        navLinks.forEach(l => l.classList.remove('active'));
+        // 激活当前点击的链接
+        this.classList.add('active');
+      });
+    });
+
+
+  </script>
 </body>
 
 </html>
