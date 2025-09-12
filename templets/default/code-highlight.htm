@@ -49,9 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // 为代码块添加唯一ID
         block.id = `code-block-${index}`;
         
-        // 设置默认不换行
-        block.style.whiteSpace = 'pre';
-        block.style.wordWrap = 'normal';
+        // 设置默认自动换行
+        block.style.whiteSpace = 'pre-wrap';
+        block.style.wordWrap = 'break-word';
+        
+        // 设置换行按钮为激活状态
+        wrapButton.classList.add('active');
         
         // 添加换行切换事件
         wrapButton.addEventListener('click', () => {

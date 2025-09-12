@@ -112,8 +112,8 @@ pre code {
 
 .code-copy-button.copied,
 .code-wrap-button.active {
-    background: #98c379;
-    color: #282c34;
+    /*background: #98c379;
+    color: #282c34;*/
 }
 
 .code-copy-button svg,
@@ -167,6 +167,6 @@ pre code:hover {
         background: #1a1d23;
     }
     .code-lang-label {
-        background: rgba(26, 29, 35, 0.8);
+        /*background: rgba(26, 29, 35, 0.8);*/
     }
 }
