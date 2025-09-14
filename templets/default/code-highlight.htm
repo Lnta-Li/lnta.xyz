@@ -101,7 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
         loadScript('https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js'),
         
         // 加载本地样式
-        loadCSS('{dede:global.cfg_templets_skin/}/style/code-highlight.css')
+        loadCSS('{dede:global.cfg_templets_skin/}/style/code-highlight.css'),
+        
+        // 加载本地脚本
+        loadScript('{dede:global.cfg_templets_skin/}/js/notice.js')
     ])
     .then(() => {
         // 核心资源加载完成后，加载语言包
@@ -136,8 +139,28 @@ document.addEventListener('DOMContentLoaded', function() {
         
         clipboard.on('success', function(e) {
             const button = e.trigger;
+            const originalIcon = button.innerHTML;
+            const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+            
+            // 禁用按钮以防止重复点击
+            button.disabled = true;
+            
+            // 切换到对号图标
+            button.innerHTML = checkIcon;
             button.classList.add('copied');
-            setTimeout(() => button.classList.remove('copied'), 2000);
+            
+            // 显示通知
+            if (typeof NoticeManager !== 'undefined') {
+                NoticeManager.quickShow('已复制', '&#xe8c3;');
+            }
+            
+            // 几秒后恢复为复制图标并重新启用按钮
+            setTimeout(() => {
+                button.innerHTML = originalIcon;
+                button.classList.remove('copied');
+                button.disabled = false;
+            }, 2000);
+            
             e.clearSelection();
         }); 
 
