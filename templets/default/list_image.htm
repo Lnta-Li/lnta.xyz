@@ -9,73 +9,78 @@
     <meta name="keywords" content="{dede:field name='keywords'/}" />
     <meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
     {dede:include filename="theme.htm"/}
-    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen" type="text/css" />
-    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-style.css" rel="stylesheet" media="screen"
+        type="text/css" />
+    <link href="{dede:global.cfg_templets_skin/}/style/Lnta-mobile.css" rel="stylesheet" media="screen"
+        type="text/css" />
     <script src="{dede:global.cfg_templets_skin/}/js/page-loader.js"></script>
 </head>
 
 <body huaban_pin_injected="true" class="tra-bg-color">
     {dede:include filename="head.htm"/}
     <div id="pagebody">
-    <div class="page-wrapper">
-        <header class="header col-9 offset-3 nested artheader mobile-full mobile-no-offset">
-            <div class="col-7 mobile-full">
+        <div class="page-wrapper pagtype pagtype-arc" style="display: flex;">
+            <div class="fillheight-1"></div>
+            <header class="content-width">
+                <div class="fillwidth-archeader"></div>
                 <div class="design">
                     {dede:field.typebigimg runphp='yes'}
                     $mediaUrl = @me;
                     $ext = strtolower(pathinfo($mediaUrl, PATHINFO_EXTENSION));
                     $videoExts = array('mp4', 'webm', 'ogg');
-                    
+
                     if(in_array($ext, $videoExts)) {
-                        @me = '<video src="'.$mediaUrl.'" autoplay loop muted playsinline style="width:100%;"></video>';
+                    @me = '<video src="'.$mediaUrl.'" autoplay loop muted playsinline style="width:100%;"></video>';
                     } else {
-                        @me = '<img alt="{dede:field.title/}" src="'.$mediaUrl.'">';
+                    @me = '<img alt="{dede:field.title/}" src="'.$mediaUrl.'">';
                     }
                     {/dede:field.typebigimg}
                 </div>
-            </div>
-        </header>
-        
-        <div class="channel-title col-9 offset-3 mobile-full mobile-no-offset">
-            <h1>{dede:field.typename/}<span class="translation"> {dede:field.typeenglishname /}</span></h1>
+                <section class="list-content">
+                    <div class="fillwidth-arcmid"></div>
+                    <div class="channel-title">
+                        <h1>{dede:field.typename/}<span class="translation"> {dede:field.typeenglishname /}</span></h1>
+                    </div>
+                    <div class="fillwidth-arcmid"></div>
+                    <div class="projects-container">
+                        <ul class="projects list-offset">
+                            {dede:list pagesize='999'}
+                            <li class="project"><a class="project-link fixed mobile-flex-column" href="[field:arcurl/]">
+                                    <div class="project-number">
+                                        <span>[field:global.autoindex runphp='yes'] if(@me < 10) { @me="0" .@me; }
+                                                [/field:global.autoindex]</span>
+                                    </div>
+                                    <div class="project-thumb-fixed mobile-full">
+                                        <img class="project-thumb" alt="[field:title/]" src="[field:autolitpic/]">
+                                    </div>
+                                    <div class="project-title mobile-full">
+                                        <h6 class="active">[field:pubdate function="MyDate('Y-m-d',@me)"/]</h6>
+                                        <h2>[field:title function="cutStr(@me,60)"/]</h2>
+                                        <p>[field:description function="cutStr(@me,120)"/]</p>
+                                        <span class="clickico listicon">
+                                            <i class="iconfontb">&#xe8d4;</i>&ensp;[field:click/]&ensp;&ensp;
+                                            <i class="iconfontb">&#xe616;</i>&ensp;[field:goodpost/]&ensp;&ensp;
+                                            <i class="iconfontb">&#xe60e;</i>&ensp;[field:id runphp='yes'] global $dsql;
+                                            $row =
+                                            $dsql->GetOne("SELECT COUNT(*) AS num FROM dede_feedback WHERE aid=@me");
+                                            @me=$row['num']; [/field:id]
+                                        </span>
+                                    </div>
+                                </a></li>
+                            {/dede:list}
+                        </ul>
+                        <div class="fillwidth-3"></div>
+                        <div class="projects">
+                            <ul class="col-8 nested next-shelf pagelist mobile-full">
+                                {dede:pagelist listitem="index,end,pre,next,pageno,option" listsize="5"/}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </header>
         </div>
-        
-        <section class="projects-wrapper tra-bg-color">
-            <div class="projects-container">
-                <ul class="projects col-10 offset-2 nested mobile-full mobile-no-offset">
-                    {dede:list pagesize='999'}
-                    <li class="project col-8 nested mobile-full mob-over"><a
-                            class="project-link fixed mobile-flex-column" href="[field:arcurl/]">
-                            <div class="project-number col-1 mobile-full">
-                                <span>[field:global.autoindex runphp='yes'] if(@me < 10) { @me="0" .@me; }
-                                        [/field:global.autoindex]</span>
-                            </div>
-                            <div class="col-3 project-thumb-fixed mobile-full">
-                                <img class="project-thumb" alt="[field:title/]" src="[field:autolitpic/]">
-                            </div>
-                            <div class="col-4 project-title mobile-full">
-                                <h6 class="active">[field:pubdate function="MyDate('Y-m-d',@me)"/]</h6>
-                                <h2>[field:title function="cutStr(@me,60)"/]</h2>
-                                <p>[field:description function="cutStr(@me,120)"/]</p>
-                                <span class="clickico listicon">
-                                    <i class="iconfontb">&#xe8d4;</i>&ensp;[field:click/]&ensp;&ensp;
-                                    <i class="iconfontb">&#xe616;</i>&ensp;[field:goodpost/]&ensp;&ensp;
-                                    <i class="iconfontb">&#xe60e;</i>&ensp;[field:id runphp='yes'] global $dsql; $row = $dsql->GetOne("SELECT COUNT(*) AS num FROM dede_feedback WHERE aid=@me"); @me=$row['num']; [/field:id]
-                                </span>
-                            </div>
-                        </a></li>
-                    {/dede:list}
-                </ul>
-                <div class="fillwidth-3"></div>
-                <div class="projects col-10 offset-2 nested mobile-full mobile-no-offset">
-                    <ul class="col-8 nested next-shelf pagelist mobile-full">
-                        {dede:pagelist listitem="index,end,pre,next,pageno,option" listsize="5"/}
-                    </ul>
-                </div>
-            </div>
-            {dede:include filename="footer.htm"/}
-        </section>
-    </div>
+        <div class="fillwidth-2"></div>
+        {dede:include filename="footer.htm"/}
     </div>
 
     <script src="{dede:global.cfg_templets_skin/}/js/mobile-menu.js"></script>

@@ -17,19 +17,24 @@
 <body class="articleview tra-bg-color">
   {dede:include filename="head.htm"/}
 <div id="pagebody">
-  <div class="page-wrapper pagtype pagtype-arc" style="display: flex;">
-    <div class="fillheight-1" style="width: 25vw;"></div>
-    <div class="content-width">
-      <div class="fillwidth-archeader"></div>
-      <div id="image-area-placeholder">
-        <a class="default-img" href="{dede:field.typesmallimg /}" title="点击查看所有作品">
-          <img class="project-header" alt="{dede:field.title/}" src="{dede:field.typebigimg /}">
-        </a>
+  <div class="page-wrapper">
+    <div class="col-7 offset-3 nested mobile-full mobile-no-offset about-header">
+      <div class="project-area">
+        <header class="col-7 nested about-img">
+          <div class="col-7 mobile-full">
+            <a class="no-style" href="{dede:field.typesmallimg /}" title="点击查看所有作品">
+              <img class="project-header" alt="{dede:field.title/}" src="{dede:field.typebigimg /}"></div>
+            </a>
+        </header>
       </div>
-      <div class="fillwidth-archeader"></div>
-      <div class="project-area content-area">
-        <div class="fillwidth-5"></div>
-        {dede:field.content/}
+    </div>
+    <div class="col-7 offset-3 nested mobile-full mobile-no-offset about-content">
+      <div class="project-area">
+        <section class="col-7 nested mobile-full mob-over">
+          <div class="col-7 mobile-full">
+            {dede:field.content/}
+          </div>
+        </section>
       </div>
     </div>
   </div>
