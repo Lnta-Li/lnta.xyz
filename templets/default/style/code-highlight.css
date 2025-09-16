@@ -94,6 +94,19 @@ pre code {
     border-radius: 8px;
 }
 
+.code-copy-button:hover {
+    background: rgba(84, 152, 122, 0.8);
+}
+
+.code-copy-button.copied {
+    color: #98c379;
+}
+
+.code-copy-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .code-wrap-button {
     padding: 4px;
     border: none;
@@ -108,6 +121,12 @@ pre code {
     height: 28px;
     background: transparent;
     border-radius: 8px;
+}
+
+.code-copy-button svg {
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 .code-copy-button.copied,

@@ -10,7 +10,7 @@ const NoticeManager = (function() {
         positionMode: 'default', // 默认定位模式
         timeout: {
             show: 0,           // 显示延时（秒）
-            autoHide: 5,       // 自动隐藏时间（秒）
+            autoHide: 2,       // 自动隐藏时间（秒）
             remove: 0.5        // 隐藏后销毁延时（秒）
         },
         ui: {
@@ -276,4 +276,4 @@ const NoticeManager = (function() {
 // 如果支持模块导出，则导出NoticeManager
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = NoticeManager;
-} 
+}
