@@ -592,8 +592,12 @@
 
     .project-thumb-fixed .project-thumb {
         height: auto;
-        max-height: 240px;
+        max-height: 300px;
         min-height: 200px;
+    }
+
+    .project {
+        width: 100%;
     }
 
 }
