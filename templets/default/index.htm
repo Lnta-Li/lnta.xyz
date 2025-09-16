@@ -35,7 +35,32 @@
   <!-- 主要内容区域 -->
   <main class="main-content">
     <div class="hero-text" id="heroText">
-      <h1 class="hero-title" id="heroTitle">LNTANO</h1>
+      <h1 class="hero-title" id="heroTitle">
+        <div class="letter-container" data-letter="L" style="left: 1%;">
+          <span class="letter letter-top">L</span>
+          <span class="letter letter-bottom">L</span>
+        </div>
+        <div class="letter-container" data-letter="N" style="left: 1%;">
+          <span class="letter letter-top">N</span>
+          <span class="letter letter-bottom">N</span>
+        </div>
+        <div class="letter-container" data-letter="T" style="left: 4%;">
+          <span class="letter letter-top">T</span>
+          <span class="letter letter-bottom">T</span>
+        </div>
+        <div class="letter-container" data-letter="A" style="left: 3%;">
+          <span class="letter letter-top">A</span>
+          <span class="letter letter-bottom">A</span>
+        </div>
+        <div class="letter-container" data-letter="N" style="left: 4%;">
+          <span class="letter letter-top">N</span>
+          <span class="letter letter-bottom">N</span>
+        </div>
+        <div class="letter-container" data-letter="O" style="left: 6%;">
+          <span class="letter letter-top">O</span>
+          <span class="letter letter-bottom">O</span>
+        </div>
+      </h1>
       <p class="hero-subtitle" id="heroSubtitle">DREAM & LIFE DESIGNER</p>
     </div>
 
@@ -420,6 +445,146 @@
         this.classList.add('active');
       });
     });
+
+    // ========== 字母滚动动画配置 ==========
+    const LETTER_ANIMATION_CONFIG = {
+      // 动画时间设置
+      letterDelay: 80,        // 每个字母之间的延迟时间（毫秒）
+      animationDuration: 800,  // 单个字母动画持续时间（毫秒）
+      repeatInterval: 8000,    // 动画重复间隔（毫秒）
+
+      // 移动距离设置
+      moveDistance: 300,       // 字母移动距离（像素）
+
+      // 缓动函数设置
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // CSS缓动函数
+    };
+
+    // ========== 字母滚动动画实现 ==========
+    class LetterAnimation {
+      constructor() {
+        this.letterContainers = document.querySelectorAll('.letter-container');
+        this.isAnimating = false;
+        this.animationTimer = null;
+
+        this.init();
+      }
+
+      init() {
+        // 页面加载后延迟2秒开始第一次动画
+        setTimeout(() => {
+          this.startAnimation();
+        }, 2000);
+
+        // 设置定时重复动画
+        this.setupRepeatAnimation();
+      }
+
+      setupRepeatAnimation() {
+        this.animationTimer = setInterval(() => {
+          if (!this.isAnimating) {
+            this.startAnimation();
+          }
+        }, LETTER_ANIMATION_CONFIG.repeatInterval);
+      }
+
+      startAnimation() {
+        if (this.isAnimating) return;
+
+        this.isAnimating = true;
+
+        // 依次动画每个字母
+        this.letterContainers.forEach((container, index) => {
+          setTimeout(() => {
+            this.animateLetter(container, index);
+          }, index * LETTER_ANIMATION_CONFIG.letterDelay);
+        });
+
+        // 动画完成后重置状态
+        const totalAnimationTime =
+          (this.letterContainers.length - 1) * LETTER_ANIMATION_CONFIG.letterDelay +
+          LETTER_ANIMATION_CONFIG.animationDuration;
+
+        setTimeout(() => {
+          this.isAnimating = false;
+        }, totalAnimationTime);
+      }
+
+      animateLetter(container, index) {
+        // 添加动画类
+        container.classList.add('animating');
+
+        // 动画完成后重置位置
+        setTimeout(() => {
+          this.resetLetter(container);
+        }, LETTER_ANIMATION_CONFIG.animationDuration);
+      }
+
+      resetLetter(container) {
+        // 添加重置类，禁用过渡效果
+        container.classList.add('reset');
+        container.classList.remove('animating');
+
+        // 立即重置位置
+        setTimeout(() => {
+          // 移除重置类，恢复过渡效果
+          container.classList.remove('reset');
+        }, 50);
+      }
+
+      // 手动触发动画（可用于调试）
+      triggerAnimation() {
+        if (!this.isAnimating) {
+          this.startAnimation();
+        }
+      }
+
+      // 停止自动重复动画
+      stopAnimation() {
+        if (this.animationTimer) {
+          clearInterval(this.animationTimer);
+          this.animationTimer = null;
+        }
+      }
+
+      // 重新开始自动重复动画
+      resumeAnimation() {
+        this.stopAnimation();
+        this.setupRepeatAnimation();
+      }
+
+      // 更新配置参数
+      updateConfig(newConfig) {
+        Object.assign(LETTER_ANIMATION_CONFIG, newConfig);
+
+        // 更新CSS变量
+        this.updateCSSVariables();
+
+        // 重新设置定时器
+        this.resumeAnimation();
+      }
+
+      updateCSSVariables() {
+        const root = document.documentElement;
+        root.style.setProperty('--letter-move-distance', LETTER_ANIMATION_CONFIG.moveDistance + 'px');
+        root.style.setProperty('--letter-animation-duration', LETTER_ANIMATION_CONFIG.animationDuration + 'ms');
+        root.style.setProperty('--letter-easing', LETTER_ANIMATION_CONFIG.easing);
+      }
+    }
+
+    // 初始化字母动画
+    let letterAnimation;
+    document.addEventListener('DOMContentLoaded', () => {
+      letterAnimation = new LetterAnimation();
+    });
+
+    // 全局函数，方便调试和控制
+    window.letterAnimationControl = {
+      trigger: () => letterAnimation?.triggerAnimation(),
+      stop: () => letterAnimation?.stopAnimation(),
+      resume: () => letterAnimation?.resumeAnimation(),
+      updateConfig: (config) => letterAnimation?.updateConfig(config)
+    };
 
 
   </script>
