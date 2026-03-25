@@ -1,1 +1,0 @@
-INSERT INTO `dede_admin` VALUES('1','10','Lntadmin','b3706e86663d850a7605','✨Lntano.Li','','','','1757638139','222.92.76.226');

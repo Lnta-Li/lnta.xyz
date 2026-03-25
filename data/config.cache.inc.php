@@ -180,9 +180,9 @@ $cfg_font_icon = '/* 在线链接服务仅供平台体验和调试使用，平�
 @font-face {
   font-family: \'iconfont\';  /* Project id 4858194 */
   src: 
-       url(\'//at.alicdn.com/t/c/font_4858194_6ja4odnbj43.woff2?t=1749798364689\') format(\'woff2\'),
-       url(\'//at.alicdn.com/t/c/font_4858194_6ja4odnbj43.woff?t=1749798364689\') format(\'woff\'),
-       url(\'//at.alicdn.com/t/c/font_4858194_6ja4odnbj43.ttf?t=1749798364689\') format(\'truetype\');
+       url(\'//at.alicdn.com/t/c/font_4858194_8vc0ijxppv3.woff2?t=1763974403013\') format(\'woff2\'),
+       url(\'//at.alicdn.com/t/c/font_4858194_8vc0ijxppv3.woff?t=1763974403013\') format(\'woff\'),
+       url(\'//at.alicdn.com/t/c/font_4858194_8vc0ijxppv3.ttf?t=1763974403013\') format(\'truetype\');
 }
 .iconfont {
     font-family:\'iconfont\' !important;
